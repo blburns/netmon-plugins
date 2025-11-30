@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <netdb.h>
+#include <unistd.h>
 #endif
 
 namespace {
