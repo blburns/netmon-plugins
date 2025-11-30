@@ -21,10 +21,10 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - full implementation requires MySQL client library
+        // MySQL requires client library - cannot function without external dependencies
         return netmon_plugins::PluginResult(
             netmon_plugins::ExitCode::UNKNOWN,
-            "MySQL query check - " + hostname + ":" + std::to_string(port) + " (MySQL client library required)"
+            "MySQL query check - " + hostname + ":" + std::to_string(port) + " (MySQL client library required - zero dependency requirement)"
         );
     }
     
@@ -72,7 +72,7 @@ public:
                "  -q, --query QUERY       SQL query to execute\n"
                "  -h, --help              Show this help message\n"
                "\n"
-               "Note: Requires MySQL client library. Implementation pending.";
+               "Note: This plugin requires MySQL client library and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

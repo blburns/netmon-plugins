@@ -20,10 +20,10 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - full implementation requires LDAP library
+        // LDAP requires library - cannot function without external dependencies
         return netmon_plugins::PluginResult(
             netmon_plugins::ExitCode::UNKNOWN,
-            "LDAP check - " + hostname + ":" + std::to_string(port) + " (LDAP library required)"
+            "LDAP check - " + hostname + ":" + std::to_string(port) + " (LDAP library required - zero dependency requirement)"
         );
     }
     
@@ -66,7 +66,7 @@ public:
                "  -b, --base BASE         Base DN\n"
                "  -h, --help             Show this help message\n"
                "\n"
-               "Note: Requires LDAP library. Implementation pending.";
+               "Note: This plugin requires LDAP library and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

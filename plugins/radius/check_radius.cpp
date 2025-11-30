@@ -20,10 +20,10 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - full implementation requires RADIUS library
+        // RADIUS requires library - cannot function without external dependencies
         return netmon_plugins::PluginResult(
             netmon_plugins::ExitCode::UNKNOWN,
-            "RADIUS check - " + hostname + ":" + std::to_string(port) + " (RADIUS library required)"
+            "RADIUS check - " + hostname + ":" + std::to_string(port) + " (RADIUS library required - zero dependency requirement)"
         );
     }
     
@@ -66,7 +66,7 @@ public:
                "  -P, --password PASS     Password for test\n"
                "  -h, --help             Show this help message\n"
                "\n"
-               "Note: Requires RADIUS library. Implementation pending.";
+               "Note: This plugin requires RADIUS library and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

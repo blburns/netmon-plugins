@@ -19,10 +19,10 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - full implementation requires net-snmp library
+        // SNMP requires net-snmp library - cannot function without external dependencies
         return netmon_plugins::PluginResult(
             netmon_plugins::ExitCode::UNKNOWN,
-            "SNMP check - " + hostname + ":" + std::to_string(port) + " OID: " + oid + " (net-snmp library required)"
+            "SNMP check - " + hostname + ":" + std::to_string(port) + " OID: " + oid + " (net-snmp library required - zero dependency requirement)"
         );
     }
     
@@ -60,7 +60,7 @@ public:
                "  -p, --port PORT        SNMP port (default: 161)\n"
                "  -h, --help             Show this help message\n"
                "\n"
-               "Note: Requires net-snmp library. Implementation pending.";
+               "Note: This plugin requires net-snmp library and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

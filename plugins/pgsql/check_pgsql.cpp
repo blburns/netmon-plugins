@@ -20,13 +20,13 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - full implementation requires PostgreSQL client library
+        // PostgreSQL requires client library - cannot function without external dependencies
         std::ostringstream msg;
         msg << "PostgreSQL check - " << hostname << ":" << port;
         if (!database.empty()) {
             msg << " database: " << database;
         }
-        msg << " (PostgreSQL client library required)";
+        msg << " (PostgreSQL client library required - zero dependency requirement)";
         
         return netmon_plugins::PluginResult(
             netmon_plugins::ExitCode::UNKNOWN,
@@ -73,7 +73,7 @@ public:
                "  -d, --database DB       Database name\n"
                "  -h, --help              Show this help message\n"
                "\n"
-               "Note: Requires PostgreSQL client library. Implementation pending.";
+               "Note: This plugin requires PostgreSQL client library and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

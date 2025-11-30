@@ -18,10 +18,10 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - full implementation requires DBI library
+        // DBI requires library - cannot function without external dependencies
         return netmon_plugins::PluginResult(
             netmon_plugins::ExitCode::UNKNOWN,
-            "DBI check - " + dsn + " (DBI library required)"
+            "DBI check - " + dsn + " (DBI library required - zero dependency requirement)"
         );
     }
     
@@ -54,7 +54,7 @@ public:
                "  -P, --password PASS    Password\n"
                "  -h, --help            Show this help message\n"
                "\n"
-               "Note: Requires DBI library. Implementation pending.";
+               "Note: This plugin requires DBI library and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

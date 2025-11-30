@@ -7,10 +7,6 @@
 #include <iomanip>
 #include <cstring>
 #include <stdexcept>
-#include <cstdlib>
-#ifndef _WIN32
-#include <sys/wait.h>
-#endif
 
 namespace {
 
@@ -30,42 +26,11 @@ public:
             );
         }
         
-        // Uses ssh command to execute remote check
-        std::ostringstream sshCmd;
-        sshCmd << "ssh";
-        if (!username.empty()) {
-            sshCmd << " -l " << username;
-        }
-        if (port != 22) {
-            sshCmd << " -p " << port;
-        }
-        sshCmd << " " << hostname << " \"" << command << "\"";
-        
-        FILE* pipe = popen(sshCmd.str().c_str(), "r");
-        if (!pipe) {
-            return netmon_plugins::PluginResult(
-                netmon_plugins::ExitCode::UNKNOWN,
-                "Failed to execute SSH command"
-            );
-        }
-        
-        char buffer[4096];
-        std::string output;
-        while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
-            output += buffer;
-        }
-        int status = pclose(pipe);
-        
-        // Parse output (simplified - assumes standard plugin output format)
-#ifdef _WIN32
-        netmon_plugins::ExitCode code = static_cast<netmon_plugins::ExitCode>(status);
-#else
-        netmon_plugins::ExitCode code = static_cast<netmon_plugins::ExitCode>(WEXITSTATUS(status));
-#endif
-        
+        // SSH requires external binary - cannot be implemented without dependencies
+        // Return UNKNOWN to indicate this plugin cannot function without SSH client
         return netmon_plugins::PluginResult(
-            code,
-            "SSH check: " + output
+            netmon_plugins::ExitCode::UNKNOWN,
+            "check_by_ssh requires SSH client binary (not available - zero dependency requirement)"
         );
     }
     
@@ -103,7 +68,7 @@ public:
                "  -C, --command CMD        Command to execute remotely\n"
                "  -h, --help              Show this help message\n"
                "\n"
-               "Note: Requires SSH access to remote host.";
+               "Note: This plugin requires SSH client binary and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

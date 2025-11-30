@@ -18,10 +18,10 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - UPS monitoring typically uses NUT (Network UPS Tools)
+        // UPS monitoring requires NUT (Network UPS Tools) - cannot function without external dependencies
         return netmon_plugins::PluginResult(
-            netmon_plugins::ExitCode::OK,
-            "UPS check - " + hostname + ":" + std::to_string(port) + " UPS: " + upsName + " (NUT implementation pending)"
+            netmon_plugins::ExitCode::UNKNOWN,
+            "UPS check - " + hostname + ":" + std::to_string(port) + " UPS: " + upsName + " (NUT required - zero dependency requirement)"
         );
     }
     
@@ -54,7 +54,7 @@ public:
                "  -u, --ups NAME          UPS name\n"
                "  -h, --help              Show this help message\n"
                "\n"
-               "Note: Requires NUT (Network UPS Tools). Implementation pending.";
+               "Note: This plugin requires NUT (Network UPS Tools) and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {

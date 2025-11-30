@@ -16,7 +16,6 @@ private:
 
 public:
     netmon_plugins::PluginResult check() override {
-        // Placeholder - SMART monitoring requires smartctl or similar
         if (device.empty()) {
             return netmon_plugins::PluginResult(
                 netmon_plugins::ExitCode::UNKNOWN,
@@ -24,9 +23,10 @@ public:
             );
         }
         
+        // SMART monitoring requires smartctl binary - cannot function without external dependencies
         return netmon_plugins::PluginResult(
-            netmon_plugins::ExitCode::OK,
-            "IDE/SATA SMART check - " + device + " (smartctl required)"
+            netmon_plugins::ExitCode::UNKNOWN,
+            "IDE/SATA SMART check requires smartctl binary (not available - zero dependency requirement)"
         );
     }
     
@@ -49,7 +49,7 @@ public:
                "  -d, --device DEVICE    Device path (e.g., /dev/sda)\n"
                "  -h, --help             Show this help message\n"
                "\n"
-               "Note: Requires smartctl command. Implementation pending.";
+               "Note: This plugin requires smartctl binary and cannot function with zero dependencies.";
     }
     
     std::string getDescription() const override {
