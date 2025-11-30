@@ -1,0 +1,37 @@
+// Jenkinsfile for NetMon Plugins CI/CD
+
+pipeline {
+    agent any
+    
+    environment {
+        PROJECT_NAME = 'netmon-plugins'
+        VERSION = '0.1.0'
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                sh 'make build'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh 'make test'
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                sh 'make package'
+            }
+        }
+    }
+    
+    post {
+        always {
+            archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
+        }
+    }
+}
+

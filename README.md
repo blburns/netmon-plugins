@@ -1,0 +1,276 @@
+# NetMon Plugins - Modern Monitoring Plugins
+
+A comprehensive collection of modern monitoring plugins, designed for contemporary systems and best practices. Compatible with multiple monitoring systems including Nagios, Icinga, Zabbix, Prometheus, and more.
+
+## Overview
+
+This project provides a complete set of monitoring plugins, built from the ground up for:
+- **Modern C++17** standards
+- **Cross-platform support** (Linux, macOS, Windows)
+- **Enhanced security** and error handling
+- **Improved performance** and reliability
+- **Better documentation** and maintainability
+- **Comprehensive testing**
+- **Multi-system compatibility** - Works with any monitoring system
+
+## Features
+
+### Core Capabilities
+- **40+ Monitoring Plugins** - Complete coverage of system and network monitoring
+- **Universal Compatibility** - Works with Nagios, Icinga, Zabbix, Prometheus, and other monitoring systems
+- **Modern C++** - Clean, maintainable codebase using C++17
+- **Cross-Platform** - Works on Linux, macOS, and Windows
+- **Comprehensive Testing** - Unit and integration tests for all plugins
+- **Package Management** - DEB, RPM, PKG, and MSI packages available
+
+### Plugin Categories
+
+#### System Monitoring
+- `disk` - Disk space and usage monitoring
+- `load` - System load average monitoring
+- `swap` - Swap space monitoring
+- `procs` - Process monitoring
+- `users` - User session monitoring
+- `uptime` - System uptime monitoring
+
+#### Network Monitoring
+- `ping` - ICMP ping monitoring
+- `fping` - Fast ping monitoring
+- `tcp` - TCP connection monitoring
+- `dns` - DNS resolution monitoring
+- `dig` - DNS query monitoring
+- `http` - HTTP/HTTPS service monitoring
+- `smtp` - SMTP service monitoring
+- `ssh` - SSH service monitoring
+- `ntp` - NTP time synchronization monitoring
+- `snmp` - SNMP monitoring
+
+#### Database Monitoring
+- `mysql` - MySQL database monitoring
+- `mysql_query` - MySQL query monitoring
+- `pgsql` - PostgreSQL monitoring
+- `dbi` - Database interface monitoring
+
+#### Application Monitoring
+- `ldap` - LDAP service monitoring
+- `radius` - RADIUS authentication monitoring
+- `mrtg` - MRTG data monitoring
+
+#### Hardware Monitoring
+- `ide_smart` - IDE/SATA SMART monitoring
+- `hpjd` - HP JetDirect printer monitoring
+- `ups` - UPS monitoring
+
+## Quick Start
+
+### Installation
+
+#### From Source
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/netmon-plugins.git
+cd netmon-plugins
+
+# Build the project
+make install-dev  # Install development dependencies
+make build        # Build all plugins
+make install      # Install system-wide
+```
+
+#### From Packages
+
+**Ubuntu/Debian:**
+```bash
+sudo apt update
+sudo apt install netmon-plugins
+```
+
+**CentOS/RHEL:**
+```bash
+sudo yum install netmon-plugins
+# or
+sudo dnf install netmon-plugins
+```
+
+**macOS:**
+```bash
+brew install netmon-plugins
+```
+
+### Usage
+
+All plugins follow the standard monitoring plugin interface (compatible with Nagios, Icinga, and other systems):
+
+```bash
+# Check disk usage
+check_disk -w 80 -c 90 /dev/sda1
+
+# Check HTTP service
+check_http -H example.com -p 443 -S
+
+# Check MySQL
+check_mysql -H localhost -u monitoring -p password
+
+# Check ping
+check_ping -H 8.8.8.8 -w 100,20% -c 200,50%
+```
+
+### Plugin Output Format
+
+All plugins follow the standard monitoring plugin output format:
+
+```
+PLUGIN_NAME STATUS: Output message | perfdata
+```
+
+Example:
+```
+DISK OK - free space: / 4556 MB (56% inode=99%);| /=3644MB;15240;0;0;0 /var=15420MB;15420;0;0;0
+```
+
+## Project Structure
+
+```
+netmon-plugins/
+├── plugins/              # Individual plugin implementations
+│   ├── disk/
+│   ├── http/
+│   ├── ping/
+│   └── ...
+├── src/                  # Shared source code
+│   └── common/           # Common utilities
+├── include/              # Header files
+│   └── netmon/     # Public API headers
+├── tests/                # Test suite
+│   ├── unit/            # Unit tests
+│   └── integration/     # Integration tests
+├── docs/                 # Documentation
+│   ├── getting-started/
+│   ├── development/
+│   └── examples/
+├── scripts/              # Build and deployment scripts
+├── automation/           # CI/CD automation
+│   ├── ci/              # CI configuration
+│   ├── docker/          # Docker setup
+│   └── vagrant/         # Vagrant setup
+├── packaging/            # Package generation
+│   ├── linux/
+│   ├── macos/
+│   └── windows/
+├── deployment/           # Deployment configurations
+├── tools/                # Utility scripts
+├── config/               # Configuration files
+└── project/              # Project management docs
+```
+
+## Development
+
+### Building from Source
+
+```bash
+# Install dependencies
+make install-dev
+
+# Build in debug mode
+make dev-build
+
+# Run tests
+make test
+
+# Build release
+make build
+
+# Create packages
+make package
+```
+
+### Adding a New Plugin
+
+1. Create plugin directory: `plugins/myplugin/`
+2. Implement plugin: `plugins/myplugin/check_myplugin.cpp`
+3. Add to CMakeLists.txt
+4. Write tests: `tests/unit/test_myplugin.cpp`
+5. Update documentation
+
+### Testing
+
+```bash
+# Run all tests
+make test
+
+# Run specific test suite
+cd build && ctest -R "unit_tests"
+
+# Run with coverage
+make coverage
+```
+
+## Plugin List
+
+The following plugins are included in this project:
+
+- `apt` - APT package manager monitoring
+- `by_ssh` - Remote checks via SSH
+- `cluster` - Cluster monitoring
+- `dbi` - Database interface monitoring
+- `dig` - DNS query tool
+- `disk` - Disk space monitoring
+- `dns` - DNS resolution monitoring
+- `dummy` - Dummy plugin for testing
+- `fping` - Fast ping monitoring
+- `game` - Game server monitoring
+- `hpjd` - HP JetDirect monitoring
+- `http` - HTTP/HTTPS monitoring
+- `ide_smart` - IDE/SATA SMART monitoring
+- `ldap` - LDAP monitoring
+- `load` - System load monitoring
+- `mrtg` - MRTG data monitoring
+- `mrtgtraf` - MRTG traffic monitoring
+- `mysql` - MySQL monitoring
+- `mysql_query` - MySQL query monitoring
+- `nt` - Windows NT monitoring
+- `ntp` - NTP monitoring
+- `ntp_peer` - NTP peer monitoring
+- `ntp_time` - NTP time monitoring
+- `nwstat` - Network statistics
+- `overcr` - Overcommit monitoring
+- `pgsql` - PostgreSQL monitoring
+- `ping` - ICMP ping monitoring
+- `procs` - Process monitoring
+- `radius` - RADIUS monitoring
+- `real` - Real-time monitoring
+- `smtp` - SMTP monitoring
+- `snmp` - SNMP monitoring
+- `ssh` - SSH monitoring
+- `swap` - Swap space monitoring
+- `tcp` - TCP connection monitoring
+- `time` - Time monitoring
+- `ups` - UPS monitoring
+- `uptime` - System uptime monitoring
+- `users` - User session monitoring
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
+
+## License
+
+This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+- **Documentation**: [docs/](docs/)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/netmon-plugins/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/netmon-plugins/discussions)
+
+## Acknowledgments
+
+- Original monitoring plugins community
+- All contributors
+
