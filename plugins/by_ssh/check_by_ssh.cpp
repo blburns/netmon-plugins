@@ -8,6 +8,9 @@
 #include <cstring>
 #include <stdexcept>
 #include <cstdlib>
+#ifndef _WIN32
+#include <sys/wait.h>
+#endif
 
 namespace {
 
@@ -54,7 +57,11 @@ public:
         int status = pclose(pipe);
         
         // Parse output (simplified - assumes standard plugin output format)
+#ifdef _WIN32
+        netmon_plugins::ExitCode code = static_cast<netmon_plugins::ExitCode>(status);
+#else
         netmon_plugins::ExitCode code = static_cast<netmon_plugins::ExitCode>(WEXITSTATUS(status));
+#endif
         
         return netmon_plugins::PluginResult(
             code,
