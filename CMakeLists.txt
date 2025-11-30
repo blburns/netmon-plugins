@@ -150,12 +150,13 @@ install(DIRECTORY include/
     FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
 )
 
-# Install configuration files
-install(DIRECTORY config/
-    DESTINATION etc/netmon-plugins
-    FILES_MATCHING PATTERN "*.conf" PATTERN "*.example"
-    OPTIONAL
-)
+# Install configuration files (if directory exists)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/config")
+    install(DIRECTORY config/
+        DESTINATION etc/netmon-plugins
+        FILES_MATCHING PATTERN "*.conf" PATTERN "*.example"
+    )
+endif()
 
 # Tests
 if(ENABLE_TESTS)
