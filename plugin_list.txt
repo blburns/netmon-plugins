@@ -8,6 +8,8 @@ disk
 dns
 dummy
 file_age
+file_count
+file_size
 ftp
 fping
 game
@@ -15,6 +17,7 @@ hpjd
 http
 ide_smart
 imap
+ircd
 ldap
 load
 log
@@ -22,11 +25,13 @@ mrtg
 mrtgtraf
 mysql
 mysql_query
+negate
 nt
 ntp
 ntp_peer
 ntp_time
 nwstat
+nntp
 overcr
 pgsql
 ping
@@ -41,6 +46,7 @@ ssh
 ssl_validity
 swap
 tcp
+telnet
 time
 udp
 ups
