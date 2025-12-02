@@ -6,13 +6,17 @@ dig
 disk
 dns
 dummy
+file_age
+ftp
 fping
 game
 hpjd
 http
 ide_smart
+imap
 ldap
 load
+log
 mrtg
 mrtgtraf
 mysql
@@ -25,6 +29,7 @@ nwstat
 overcr
 pgsql
 ping
+pop
 procs
 radius
 real
@@ -34,6 +39,7 @@ ssh
 swap
 tcp
 time
+udp
 ups
 uptime
 users
