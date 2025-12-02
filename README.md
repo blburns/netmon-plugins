@@ -16,10 +16,11 @@ This project provides a complete set of monitoring plugins, built from the groun
 ## Features
 
 ### Core Capabilities
-- **40+ Monitoring Plugins** - Complete coverage of system and network monitoring
+- **54+ Monitoring Plugins** - Complete coverage of system and network monitoring
 - **Universal Compatibility** - Works with Nagios, Icinga, Zabbix, Prometheus, and other monitoring systems
 - **Modern C++** - Clean, maintainable codebase using C++17
 - **Cross-Platform** - Works on Linux, macOS, and Windows
+- **Dependency-Free** - Most plugins use only standard libraries and platform APIs
 - **Comprehensive Testing** - Unit and integration tests for all plugins
 - **Package Management** - DEB, RPM, PKG, and MSI packages available
 
@@ -32,18 +33,31 @@ This project provides a complete set of monitoring plugins, built from the groun
 - `procs` - Process monitoring
 - `users` - User session monitoring
 - `uptime` - System uptime monitoring
+- `file_age` - File age and modification time monitoring
+- `file_size` - File size monitoring with thresholds
+- `file_count` - File count in directory with pattern matching
 
 #### Network Monitoring
 - `ping` - ICMP ping monitoring
 - `fping` - Fast ping monitoring
 - `tcp` - TCP connection monitoring
+- `udp` - UDP service monitoring
 - `dns` - DNS resolution monitoring
 - `dig` - DNS query monitoring
 - `http` - HTTP/HTTPS service monitoring
 - `smtp` - SMTP service monitoring
 - `ssh` - SSH service monitoring
+- `ftp` - FTP service monitoring
+- `imap` - IMAP email service monitoring
+- `pop` - POP3 email service monitoring
+- `nntp` - NNTP news server monitoring
+- `ircd` - IRC daemon monitoring
+- `telnet` - Telnet service monitoring
+- `dhcp` - DHCP service monitoring
+- `rpc` - RPC portmapper and service monitoring
 - `ntp` - NTP time synchronization monitoring
 - `snmp` - SNMP monitoring
+- `ssl_validity` - SSL/TLS certificate validity monitoring
 
 #### Database Monitoring
 - `mysql` - MySQL database monitoring
@@ -55,11 +69,15 @@ This project provides a complete set of monitoring plugins, built from the groun
 - `ldap` - LDAP service monitoring
 - `radius` - RADIUS authentication monitoring
 - `mrtg` - MRTG data monitoring
+- `log` - Log file pattern monitoring with regex
 
 #### Hardware Monitoring
 - `ide_smart` - IDE/SATA SMART monitoring
 - `hpjd` - HP JetDirect printer monitoring
 - `ups` - UPS monitoring
+
+#### Utility Plugins
+- `negate` - Utility to negate/invert plugin exit codes
 
 ## Quick Start
 
@@ -210,45 +228,73 @@ make coverage
 
 The following plugins are included in this project:
 
-- `apt` - APT package manager monitoring
-- `by_ssh` - Remote checks via SSH
-- `cluster` - Cluster monitoring
-- `dbi` - Database interface monitoring
-- `dig` - DNS query tool
+### System Monitoring
 - `disk` - Disk space monitoring
-- `dns` - DNS resolution monitoring
-- `dummy` - Dummy plugin for testing
-- `fping` - Fast ping monitoring
-- `game` - Game server monitoring
-- `hpjd` - HP JetDirect monitoring
-- `http` - HTTP/HTTPS monitoring
-- `ide_smart` - IDE/SATA SMART monitoring
-- `ldap` - LDAP monitoring
+- `file_age` - File age and modification time monitoring
+- `file_count` - File count in directory with pattern matching
+- `file_size` - File size monitoring with thresholds
 - `load` - System load monitoring
-- `mrtg` - MRTG data monitoring
-- `mrtgtraf` - MRTG traffic monitoring
-- `mysql` - MySQL monitoring
-- `mysql_query` - MySQL query monitoring
-- `nt` - Windows NT monitoring
+- `log` - Log file pattern monitoring with regex
+- `procs` - Process monitoring
+- `swap` - Swap space monitoring
+- `uptime` - System uptime monitoring
+- `users` - User session monitoring
+
+### Network Monitoring
+- `dhcp` - DHCP service monitoring
+- `dig` - DNS query tool
+- `dns` - DNS resolution monitoring
+- `ftp` - FTP service monitoring
+- `fping` - Fast ping monitoring
+- `http` - HTTP/HTTPS monitoring
+- `imap` - IMAP email service monitoring
+- `ircd` - IRC daemon monitoring
+- `nntp` - NNTP news server monitoring
 - `ntp` - NTP monitoring
 - `ntp_peer` - NTP peer monitoring
 - `ntp_time` - NTP time monitoring
-- `nwstat` - Network statistics
-- `overcr` - Overcommit monitoring
-- `pgsql` - PostgreSQL monitoring
 - `ping` - ICMP ping monitoring
-- `procs` - Process monitoring
-- `radius` - RADIUS monitoring
-- `real` - Real-time monitoring
+- `pop` - POP3 email service monitoring
+- `rpc` - RPC portmapper and service monitoring
 - `smtp` - SMTP monitoring
 - `snmp` - SNMP monitoring
 - `ssh` - SSH monitoring
-- `swap` - Swap space monitoring
+- `ssl_validity` - SSL/TLS certificate validity monitoring
 - `tcp` - TCP connection monitoring
-- `time` - Time monitoring
+- `telnet` - Telnet service monitoring
+- `udp` - UDP service monitoring
+
+### Database Monitoring
+- `dbi` - Database interface monitoring
+- `mysql` - MySQL monitoring
+- `mysql_query` - MySQL query monitoring
+- `pgsql` - PostgreSQL monitoring
+
+### Application Monitoring
+- `apt` - APT package manager monitoring
+- `cluster` - Cluster monitoring
+- `ldap` - LDAP monitoring
+- `mrtg` - MRTG data monitoring
+- `mrtgtraf` - MRTG traffic monitoring
+- `radius` - RADIUS monitoring
+
+### Hardware Monitoring
+- `hpjd` - HP JetDirect monitoring
+- `ide_smart` - IDE/SATA SMART monitoring
 - `ups` - UPS monitoring
-- `uptime` - System uptime monitoring
-- `users` - User session monitoring
+
+### Specialized Monitoring
+- `by_ssh` - Remote checks via SSH
+- `game` - Game server monitoring
+- `nt` - Windows NT monitoring
+- `nwstat` - Network statistics
+- `overcr` - Overcommit monitoring
+- `real` - Real-time monitoring
+- `time` - Time monitoring
+
+### Utility Plugins
+- `dummy` - Dummy plugin for testing
+- `negate` - Utility to negate/invert plugin exit codes
 
 ## Contributing
 
