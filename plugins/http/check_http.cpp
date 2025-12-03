@@ -8,11 +8,21 @@
 #include <iomanip>
 #include <cstring>
 #include <stdexcept>
+#include <string>
+
+#ifdef NETMON_SSL_ENABLED
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#endif
 
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
+#ifdef NETMON_SSL_ENABLED
+#pragma comment(lib, "libssl.lib")
+#pragma comment(lib, "libcrypto.lib")
+#endif
 #else
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -36,20 +46,193 @@ private:
     int warningTime = -1;
     int criticalTime = -1;
 
-    std::string httpRequest(const std::string& host, int portNum, const std::string& path, bool ssl) {
-        // Simplified HTTP request - full implementation would use OpenSSL for HTTPS
+    std::string httpRequest(const std::string& host, int portNum, const std::string& path) {
         std::ostringstream request;
         request << "GET " << path << " HTTP/1.1\r\n";
-        request << "Host: " << host << "\r\n";
+        request << "Host: " << host;
+        if (portNum != 80 && portNum != 443) {
+            request << ":" << portNum;
+        }
+        request << "\r\n";
         request << "Connection: close\r\n";
+        request << "User-Agent: NetMon-Plugins/1.0\r\n";
         request << "\r\n";
         
         return request.str();
     }
 
+#ifdef NETMON_SSL_ENABLED
+    bool checkHttps(const std::string& host, int portNum, const std::string& path, int timeout) {
+        // Initialize OpenSSL
+        SSL_library_init();
+        SSL_load_error_strings();
+        OpenSSL_add_all_algorithms();
+        
+        // Create SSL context
+        SSL_CTX* ctx = SSL_CTX_new(TLS_client_method());
+        if (!ctx) {
+            return false;
+        }
+        
+        // Set minimum protocol version
+        SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
+        
+        // Enable hostname verification
+        SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, nullptr);
+        
+        // Create socket
+#ifdef _WIN32
+        WSADATA wsaData;
+        WSAStartup(MAKEWORD(2, 2), &wsaData);
+        
+        struct addrinfo hints, *result;
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_UNSPEC;
+        hints.ai_socktype = SOCK_STREAM;
+        
+        std::string portStr = std::to_string(portNum);
+        if (getaddrinfo(host.c_str(), portStr.c_str(), &hints, &result) != 0) {
+            SSL_CTX_free(ctx);
+            WSACleanup();
+            return false;
+        }
+        
+        SOCKET sock = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+        if (sock == INVALID_SOCKET) {
+            freeaddrinfo(result);
+            SSL_CTX_free(ctx);
+            WSACleanup();
+            return false;
+        }
+        
+        DWORD timeoutMs = timeout * 1000;
+        setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutMs, sizeof(timeoutMs));
+        setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeoutMs, sizeof(timeoutMs));
+        
+        if (connect(sock, result->ai_addr, static_cast<int>(result->ai_addrlen)) != 0) {
+            freeaddrinfo(result);
+            closesocket(sock);
+            SSL_CTX_free(ctx);
+            WSACleanup();
+            return false;
+        }
+        
+        freeaddrinfo(result);
+#else
+        struct addrinfo hints, *result;
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_UNSPEC;
+        hints.ai_socktype = SOCK_STREAM;
+        
+        std::string portStr = std::to_string(portNum);
+        if (getaddrinfo(host.c_str(), portStr.c_str(), &hints, &result) != 0) {
+            SSL_CTX_free(ctx);
+            return false;
+        }
+        
+        int sock = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+        if (sock < 0) {
+            freeaddrinfo(result);
+            SSL_CTX_free(ctx);
+            return false;
+        }
+        
+        struct timeval tv;
+        tv.tv_sec = timeout;
+        tv.tv_usec = 0;
+        setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+        setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
+        
+        if (connect(sock, result->ai_addr, result->ai_addrlen) != 0) {
+            freeaddrinfo(result);
+            close(sock);
+            SSL_CTX_free(ctx);
+            return false;
+        }
+        
+        freeaddrinfo(result);
+#endif
+        
+        // Create SSL connection
+        SSL* ssl = SSL_new(ctx);
+        if (!ssl) {
+#ifdef _WIN32
+            closesocket(sock);
+            WSACleanup();
+#else
+            close(sock);
+#endif
+            SSL_CTX_free(ctx);
+            return false;
+        }
+        
+        SSL_set_fd(ssl, sock);
+        
+        // Set SNI (Server Name Indication)
+        SSL_set_tlsext_host_name(ssl, host.c_str());
+        
+        // Perform SSL handshake
+        if (SSL_connect(ssl) <= 0) {
+            SSL_free(ssl);
+#ifdef _WIN32
+            closesocket(sock);
+            WSACleanup();
+#else
+            close(sock);
+#endif
+            SSL_CTX_free(ctx);
+            return false;
+        }
+        
+        // Send HTTP request
+        std::string request = httpRequest(host, portNum, path);
+        if (SSL_write(ssl, request.c_str(), static_cast<int>(request.length())) <= 0) {
+            SSL_free(ssl);
+#ifdef _WIN32
+            closesocket(sock);
+            WSACleanup();
+#else
+            close(sock);
+#endif
+            SSL_CTX_free(ctx);
+            return false;
+        }
+        
+        // Read response
+        char buffer[4096];
+        int bytes = SSL_read(ssl, buffer, sizeof(buffer) - 1);
+        
+        SSL_free(ssl);
+#ifdef _WIN32
+        closesocket(sock);
+        WSACleanup();
+#else
+        close(sock);
+#endif
+        SSL_CTX_free(ctx);
+        
+        if (bytes > 0) {
+            buffer[bytes] = '\0';
+            std::string response(buffer);
+            if (response.find("HTTP/1") != std::string::npos && 
+                response.find("200") != std::string::npos) {
+                if (expectString.empty() || response.find(expectString) != std::string::npos) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+#endif
+
     bool checkHttp(const std::string& host, int portNum, const std::string& path, bool ssl) {
-        // Basic TCP connection check
-        // Full implementation would require HTTP parsing and SSL support
+        // Use HTTPS if SSL is requested and available
+#ifdef NETMON_SSL_ENABLED
+        if (ssl) {
+            return checkHttps(host, portNum, path, timeoutSeconds);
+        }
+#endif
 #ifdef _WIN32
         WSADATA wsaData;
         WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -106,7 +289,7 @@ private:
         freeaddrinfo(result);
         
         // Send HTTP request
-        std::string request = httpRequest(host, portNum, path, ssl);
+        std::string request = httpRequest(host, portNum, path);
         if (send(sock, request.c_str(), (int)request.length(), 0) < 0) {
             closesocket(sock);
             WSACleanup();
@@ -127,7 +310,7 @@ private:
         freeaddrinfo(result);
         
         // Send HTTP request
-        std::string request = httpRequest(host, portNum, path, ssl);
+        std::string request = httpRequest(host, portNum, path);
         if (send(sock, request.c_str(), request.length(), 0) < 0) {
             close(sock);
             return false;
@@ -251,7 +434,7 @@ public:
                "  -t, --timeout SEC       Timeout in seconds (default: 10)\n"
                "  -h, --help              Show this help message\n"
                "\n"
-               "Note: Full SSL/TLS support requires OpenSSL (to be implemented).";
+               "Note: HTTPS support requires OpenSSL. Build with: make build ENABLE_SSL=ON";
     }
     
     std::string getDescription() const override {

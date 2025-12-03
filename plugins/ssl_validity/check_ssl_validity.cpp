@@ -60,6 +60,12 @@ private:
             return false;
         }
         
+        // Set minimum protocol version
+        SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
+        
+        // Enable hostname verification (SNI)
+        SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, nullptr);
+        
         // Create socket
 #ifdef _WIN32
         WSADATA wsaData;
@@ -151,6 +157,9 @@ private:
         }
         
         SSL_set_fd(ssl, sock);
+        
+        // Set SNI (Server Name Indication)
+        SSL_set_tlsext_host_name(ssl, host.c_str());
         
         // Perform SSL handshake
         if (SSL_connect(ssl) <= 0) {
