@@ -74,11 +74,16 @@ private:
             return false;
         }
         
-        // Set minimum protocol version
+        // Set minimum protocol version (if available)
+        #ifdef SSL_CTX_set_min_proto_version
         SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
+        #endif
         
         // Enable hostname verification
         SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, nullptr);
+        
+        // Load default certificate store
+        SSL_CTX_set_default_verify_paths(ctx);
         
         // Create socket
 #ifdef _WIN32
@@ -168,11 +173,14 @@ private:
         
         SSL_set_fd(ssl, sock);
         
-        // Set SNI (Server Name Indication)
+        // Set SNI (Server Name Indication) if available
+        #ifdef SSL_set_tlsext_host_name
         SSL_set_tlsext_host_name(ssl, host.c_str());
+        #endif
         
         // Perform SSL handshake
-        if (SSL_connect(ssl) <= 0) {
+        int ssl_ret = SSL_connect(ssl);
+        if (ssl_ret <= 0) {
             SSL_free(ssl);
 #ifdef _WIN32
             closesocket(sock);
