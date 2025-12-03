@@ -2,6 +2,7 @@
 // SSL/TLS certificate validity monitoring plugin
 
 #include "netmon/plugin.hpp"
+#include "netmon/dependency_check.hpp"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -304,6 +305,16 @@ public:
             return netmon_plugins::PluginResult(
                 netmon_plugins::ExitCode::UNKNOWN,
                 "Hostname must be specified"
+            );
+        }
+        
+        // Check for OpenSSL availability
+        bool sslAvailable = checkOpenSslAvailable();
+        if (!sslAvailable) {
+            netmon_plugins::showDependencyWarning(
+                "check_ssl_validity",
+                "OpenSSL",
+                "port connectivity check only (no certificate validation)"
             );
         }
         

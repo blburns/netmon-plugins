@@ -85,6 +85,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB_RECURSE COMMON_SOURCES "src/common/*.cpp" "src/common/*.c")
 file(GLOB_RECURSE COMMON_HEADERS "include/netmon/*.hpp" "include/netmon/*.h")
 
+# Ensure dependency_check.cpp is included
+if(NOT "src/common/dependency_check.cpp" IN_LIST COMMON_SOURCES)
+    list(APPEND COMMON_SOURCES "src/common/dependency_check.cpp")
+endif()
+
 # Create common library
 add_library(netmon-common STATIC ${COMMON_SOURCES} ${COMMON_HEADERS})
 target_link_libraries(netmon-common Threads::Threads)

@@ -2,6 +2,7 @@
 // IMAP service monitoring plugin
 
 #include "netmon/plugin.hpp"
+#include "netmon/dependency_check.hpp"
 #include <iostream>
 #include <sstream>
 #include <cstring>
@@ -227,6 +228,20 @@ public:
                 netmon_plugins::ExitCode::UNKNOWN,
                 "Hostname must be specified"
             );
+        }
+        
+        // Check for OpenSSL if IMAPS is requested
+        if (useSSL && !checkOpenSslAvailable()) {
+            netmon_plugins::showDependencyWarning(
+                "check_imap",
+                "OpenSSL",
+                "IMAP connection only (IMAPS not available)"
+            );
+            // Fall back to IMAP
+            useSSL = false;
+            if (port == 993) {
+                port = 143;
+            }
         }
         
         try {

@@ -2,6 +2,7 @@
 // HTTP/HTTPS service monitoring plugin
 
 #include "netmon/plugin.hpp"
+#include "netmon/dependency_check.hpp"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -162,6 +163,20 @@ public:
                 netmon_plugins::ExitCode::UNKNOWN,
                 "Hostname must be specified"
             );
+        }
+        
+        // Check for OpenSSL if HTTPS is requested
+        if (useSSL && !checkOpenSslAvailable()) {
+            netmon_plugins::showDependencyWarning(
+                "check_http",
+                "OpenSSL",
+                "HTTP connection only (HTTPS not available)"
+            );
+            // Fall back to HTTP
+            useSSL = false;
+            if (port == 443) {
+                port = 80;
+            }
         }
         
         try {

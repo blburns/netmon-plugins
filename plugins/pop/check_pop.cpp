@@ -2,6 +2,7 @@
 // POP3 service monitoring plugin
 
 #include "netmon/plugin.hpp"
+#include "netmon/dependency_check.hpp"
 #include <iostream>
 #include <sstream>
 #include <cstring>
@@ -257,6 +258,20 @@ public:
                 netmon_plugins::ExitCode::UNKNOWN,
                 "Hostname must be specified"
             );
+        }
+        
+        // Check for OpenSSL if POP3S is requested
+        if (useSSL && !checkOpenSslAvailable()) {
+            netmon_plugins::showDependencyWarning(
+                "check_pop",
+                "OpenSSL",
+                "POP3 connection only (POP3S not available)"
+            );
+            // Fall back to POP3
+            useSSL = false;
+            if (port == 995) {
+                port = 110;
+            }
         }
         
         try {
