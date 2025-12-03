@@ -231,7 +231,7 @@ public:
         }
         
         // Check for OpenSSL if IMAPS is requested
-        if (useSSL && !checkOpenSslAvailable()) {
+        if (useSSL && !netmon_plugins::checkOpenSslAvailable()) {
             netmon_plugins::showDependencyWarning(
                 "check_imap",
                 "OpenSSL",

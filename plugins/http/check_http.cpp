@@ -166,7 +166,7 @@ public:
         }
         
         // Check for OpenSSL if HTTPS is requested
-        if (useSSL && !checkOpenSslAvailable()) {
+        if (useSSL && !netmon_plugins::checkOpenSslAvailable()) {
             netmon_plugins::showDependencyWarning(
                 "check_http",
                 "OpenSSL",

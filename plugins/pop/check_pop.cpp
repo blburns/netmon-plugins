@@ -261,7 +261,7 @@ public:
         }
         
         // Check for OpenSSL if POP3S is requested
-        if (useSSL && !checkOpenSslAvailable()) {
+        if (useSSL && !netmon_plugins::checkOpenSslAvailable()) {
             netmon_plugins::showDependencyWarning(
                 "check_pop",
                 "OpenSSL",

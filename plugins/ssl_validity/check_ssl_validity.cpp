@@ -309,7 +309,7 @@ public:
         }
         
         // Check for OpenSSL availability
-        bool sslAvailable = checkOpenSslAvailable();
+        bool sslAvailable = netmon_plugins::checkOpenSslAvailable();
         if (!sslAvailable) {
             netmon_plugins::showDependencyWarning(
                 "check_ssl_validity",
