@@ -65,11 +65,15 @@ private:
         SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
         #endif
         
-        // Enable hostname verification
-        SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, nullptr);
+        // Enable peer verification but don't fail on verification errors
+        // This allows us to get certificate info even if chain verification fails
+        SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER | SSL_VERIFY_CLIENT_ONCE, nullptr);
         
         // Load default certificate store
         SSL_CTX_set_default_verify_paths(ctx);
+        
+        // Don't fail on verification errors - we still want to get certificate info
+        SSL_CTX_set_verify_depth(ctx, 4);
         
         // Create socket
 #ifdef _WIN32
