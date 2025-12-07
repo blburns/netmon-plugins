@@ -7,47 +7,43 @@ dist/
 *.dylib
 *.dll
 *.exe
-*.lib
-*.obj
-*.pdb
-*.ilk
-*.exp
 
-# CMake
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_CPack_Packages/
-
-# IDE
+# IDE files
 .vscode/
-.vs/
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
-Thumbs.db
 
-# Test coverage
-*.gcov
-*.gcda
-*.gcno
-coverage/
+# Third-party downloaded files (not in repository)
+third_party/include/*
+!third_party/include/.gitkeep
+third_party/lib/*
+!third_party/lib/.gitkeep
+third_party/src/*
+!third_party/src/.gitkeep
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+!CMakeLists.txt
 
 # Package files
 *.deb
 *.rpm
-*.dmg
 *.pkg
 *.msi
-*.zip
 *.tar.gz
+*.zip
 
-# Logs
+# Test files
+test_results/
+coverage/
+
+# Temporary files
+*.tmp
 *.log
-
+*.bak
