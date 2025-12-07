@@ -5,7 +5,7 @@
 NetMon Plugins is a comprehensive collection of modern monitoring plugins, designed for contemporary systems and best practices. Compatible with multiple monitoring systems including Icinga, Prometheus, and more.
 
 **Key Features:**
-- **68 Monitoring Plugins** - Complete coverage of system, network, and application monitoring
+- **80 Monitoring Plugins** - Complete coverage of system, network, and application monitoring
 - **Modern C++17** standards with cross-platform support
 - **Universal Compatibility** - Works with any monitoring system
 - **Dependency-Free** - Most plugins use only standard libraries and platform APIs
@@ -40,21 +40,21 @@ NetMon Plugins is a comprehensive collection of modern monitoring plugins, desig
 
 The project has expanded significantly with:
 - ✅ Core infrastructure complete
-- ✅ 68 monitoring plugins implemented
+- ✅ 80 monitoring plugins implemented
 - ✅ Cross-platform support (Linux, macOS, Windows)
 - ✅ Comprehensive build system
 - ✅ Vendor headers support for third-party protocols
 - ✅ Documentation framework
-- ✅ Recent addition of modern application monitoring plugins
+- ✅ Comprehensive modern infrastructure monitoring (containers, orchestration, databases, message brokers)
 
 ## 📊 Project Metrics
 
-- **Total Plugins**: 68
-- **Completed Plugins**: 68 (100% of listed plugins)
+- **Total Plugins**: 80
+- **Completed Plugins**: 80 (100% of listed plugins)
 - **System Monitoring**: 9 plugins
 - **Network Monitoring**: 25 plugins
 - **Database Monitoring**: 4 plugins
-- **Application Monitoring**: 18 plugins
+- **Application Monitoring**: 30 plugins
 - **Hardware Monitoring**: 4 plugins
 - **Utility Plugins**: 2 plugins
 - **Platform Support**: 3 major platforms (Linux, macOS, Windows)
@@ -124,7 +124,7 @@ The project has expanded significantly with:
 
 ## 📈 Project Health
 
-**Status**: 🟢 **Active Development** - Core infrastructure complete, 68 plugins implemented
+**Status**: 🟢 **Active Development** - Core infrastructure complete, 80 plugins implemented
 
 **Strengths**:
 - ✅ Solid foundation with modern C++17 architecture
@@ -132,10 +132,17 @@ The project has expanded significantly with:
 - ✅ Comprehensive build and packaging system
 - ✅ Good documentation structure
 - ✅ Standardized plugin interface
-- ✅ 68 plugins covering system, network, and application monitoring
+- ✅ 80 plugins covering system, network, and application monitoring
 - ✅ Most plugins use only standard libraries
 - ✅ Vendor headers support for third-party protocols
-- ✅ Modern application monitoring (Docker, Kubernetes, etc.)
+- ✅ Comprehensive modern infrastructure monitoring:
+  - Container orchestration (Docker, Kubernetes, Nomad)
+  - Service discovery (Consul, etcd, Zookeeper)
+  - Message brokers (Kafka, RabbitMQ, ActiveMQ, Redis)
+  - Databases (MySQL, PostgreSQL, MongoDB, Cassandra, InfluxDB)
+  - Distributed systems (Ceph, Couchbase, Elasticsearch)
+  - Secrets management (Vault)
+  - Visualization (Grafana, Prometheus)
 
 **Areas for Development**:
 - ⏳ Add comprehensive test suite

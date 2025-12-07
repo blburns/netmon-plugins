@@ -16,7 +16,7 @@ This project provides a complete set of monitoring plugins, built from the groun
 ## Features
 
 ### Core Capabilities
-- **68 Monitoring Plugins** - Complete coverage of system, network, and application monitoring
+- **80 Monitoring Plugins** - Complete coverage of system, network, and application monitoring
 - **Universal Compatibility** - Works with Icinga, Prometheus, and other monitoring systems
 - **Modern C++** - Clean, maintainable codebase using C++17
 - **Cross-Platform** - Works on Linux, macOS, and Windows
@@ -69,22 +69,33 @@ This project provides a complete set of monitoring plugins, built from the groun
 - `dbi` - Database interface monitoring
 
 #### Application Monitoring
+- `activemq` - Apache ActiveMQ message broker monitoring
 - `apache` - Apache web server monitoring via mod_status
+- `cassandra` - Apache Cassandra NoSQL database monitoring
+- `ceph` - Ceph distributed storage cluster monitoring
+- `consul` - Consul service discovery and configuration monitoring
+- `couchbase` - Couchbase cluster monitoring
 - `docker` - Docker container and daemon monitoring
 - `elasticsearch` - Elasticsearch cluster health monitoring
+- `etcd` - etcd distributed key-value store monitoring
+- `grafana` - Grafana visualization platform monitoring
+- `influxdb` - InfluxDB time-series database monitoring
+- `kafka` - Apache Kafka distributed streaming platform monitoring
 - `kubernetes` - Kubernetes API server monitoring
 - `ldap` - LDAP service monitoring
 - `log` - Log file pattern monitoring with regex
 - `memcached` - Memcached server statistics monitoring
 - `mongodb` - MongoDB server availability monitoring
+- `nomad` - HashiCorp Nomad container orchestration monitoring
 - `phpfpm` - PHP-FPM process manager monitoring
 - `prometheus` - Prometheus metrics endpoint monitoring
 - `rabbitmq` - RabbitMQ message broker monitoring
 - `redis` - Redis server status and performance monitoring
 - `radius` - RADIUS authentication monitoring
 - `mrtg` - MRTG data monitoring
-- `ceph` - Ceph distributed storage cluster monitoring
-- `couchbase` - Couchbase cluster monitoring
+- `solr` - Apache Solr search platform monitoring
+- `vault` - HashiCorp Vault secrets management monitoring
+- `zookeeper` - Apache Zookeeper coordination service monitoring
 
 #### Hardware Monitoring
 - `ide_smart` - IDE/SATA SMART monitoring
@@ -302,13 +313,20 @@ The following plugins are included in this project:
 - `pgsql` - PostgreSQL monitoring
 
 ### Application Monitoring
+- `activemq` - Apache ActiveMQ message broker monitoring
 - `apache` - Apache web server monitoring
 - `apt` - APT package manager monitoring
+- `cassandra` - Apache Cassandra NoSQL database monitoring
 - `ceph` - Ceph distributed storage monitoring
 - `cluster` - Cluster monitoring
+- `consul` - Consul service discovery monitoring
 - `couchbase` - Couchbase cluster monitoring
 - `docker` - Docker container monitoring
 - `elasticsearch` - Elasticsearch cluster monitoring
+- `etcd` - etcd distributed key-value store monitoring
+- `grafana` - Grafana visualization platform monitoring
+- `influxdb` - InfluxDB time-series database monitoring
+- `kafka` - Apache Kafka distributed streaming platform monitoring
 - `kubernetes` - Kubernetes API monitoring
 - `ldap` - LDAP monitoring
 - `log` - Log file pattern monitoring
@@ -316,11 +334,15 @@ The following plugins are included in this project:
 - `mongodb` - MongoDB server monitoring
 - `mrtg` - MRTG data monitoring
 - `mrtgtraf` - MRTG traffic monitoring
+- `nomad` - HashiCorp Nomad container orchestration monitoring
 - `phpfpm` - PHP-FPM process manager monitoring
 - `prometheus` - Prometheus metrics monitoring
 - `rabbitmq` - RabbitMQ message broker monitoring
 - `redis` - Redis server monitoring
 - `radius` - RADIUS monitoring
+- `solr` - Apache Solr search platform monitoring
+- `vault` - HashiCorp Vault secrets management monitoring
+- `zookeeper` - Apache Zookeeper coordination service monitoring
 
 ### Hardware Monitoring
 - `hpjd` - HP JetDirect monitoring
