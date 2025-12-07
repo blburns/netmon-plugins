@@ -1,11 +1,11 @@
-# Third-Party Headers and Libraries
+# Vendor Headers and Libraries
 
-This directory contains third-party headers and libraries that are downloaded automatically during the build process. These files are not included in the repository to keep it clean and avoid licensing issues.
+This directory contains vendor (third-party) headers and libraries that are downloaded automatically during the build process. These files are not included in the repository to keep it clean and avoid licensing issues.
 
 ## Structure
 
 ```
-third_party/
+vendor/
 ├── include/          # Downloaded header files
 ├── lib/             # Downloaded libraries (if needed)
 ├── src/             # Downloaded source files (if needed)
@@ -14,17 +14,26 @@ third_party/
 
 ## How It Works
 
-Third-party dependencies are downloaded automatically using CMake's `FetchContent` module during the build process. The files are cached in the build directory and reused across builds.
+Vendor dependencies are downloaded automatically using CMake's `FetchContent` module during the build process. The files are cached in the build directory and reused across builds.
 
-## Adding New Third-Party Dependencies
+## Adding New Vendor Dependencies
 
-To add a new third-party dependency:
+To add a new vendor dependency:
 
-1. Add the download configuration to `third_party/CMakeLists.txt`
-2. Include the headers in your plugin using `#include "third_party/<name>/<header.h>"`
+1. Add the download configuration to `vendor/CMakeLists.txt`
+2. Include the headers in your plugin using `#include "vendor/<name>.h"` or `#include "vendor/<name>/<header.h>"`
 3. Link against the library if needed in the main `CMakeLists.txt`
 
-## Example
+## Examples
 
-See `third_party/CMakeLists.txt` for examples of how to download headers from GitHub, GitLab, or other sources.
+See `vendor/CMakeLists.txt` for examples of how to download headers from:
+- GitHub/GitLab repositories
+- Direct URLs (single header files)
+- Tarballs/archives
+
+## Manual Download
+
+You can also manually download vendor headers using the provided scripts:
+- `scripts/download_vendor.sh` (Linux/macOS)
+- `scripts/download_vendor.ps1` (Windows PowerShell)
 

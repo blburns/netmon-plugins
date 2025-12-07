@@ -69,9 +69,9 @@ All new plugins are dependency-free, using only standard C++17 and platform APIs
 ## ⏳ What's Pending
 
 ### Remaining Work
-All plugins listed in `plugin_list.txt` are now implemented (54 total):
+All plugins listed in `plugin_list.txt` are now implemented (68 total):
 
-All 54 plugins are now implemented. Remaining work focuses on:
+All 68 plugins are now implemented. Remaining work focuses on:
 
 ### Testing Infrastructure
 - ⏳ Unit test framework setup
