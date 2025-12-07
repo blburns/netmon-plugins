@@ -17,12 +17,15 @@ dist/
 .DS_Store
 
 # Vendor downloaded files (not in repository)
-vendor/include/*
-!vendor/include/.gitkeep
-vendor/lib/*
-!vendor/lib/.gitkeep
-vendor/src/*
-!vendor/src/.gitkeep
+vendors/include/*
+!vendors/include/.gitkeep
+vendors/lib/*
+!vendors/lib/.gitkeep
+vendors/src/*
+!vendors/src/.gitkeep
+vendors/mysql/*
+vendors/postgresql/*
+vendors/oracle/*
 
 # CMake
 CMakeCache.txt

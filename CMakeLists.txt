@@ -82,7 +82,7 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Include vendor headers configuration
-add_subdirectory(vendor)
+add_subdirectory(vendors)
 
 # Common library sources
 file(GLOB_RECURSE COMMON_SOURCES "src/common/*.cpp" "src/common/*.c")

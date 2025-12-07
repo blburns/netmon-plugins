@@ -1,5 +1,8 @@
-# vendor/CMakeLists.txt
+# vendors/CMakeLists.txt
 # Configuration for downloading vendor headers and libraries
+# 
+# Each vendor library (MySQL, PostgreSQL, Oracle, etc.) can be organized
+# in its own subdirectory for containerized/extracted libraries.
 
 include(FetchContent)
 

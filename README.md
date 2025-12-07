@@ -187,7 +187,7 @@ netmon-plugins/
 │   └── common/           # Common utilities
 ├── include/              # Header files
 │   └── netmon/           # Public API headers
-├── vendor/               # Third-party protocol headers
+├── vendors/              # Third-party protocol headers and libraries (MySQL, PostgreSQL, Oracle, etc.)
 │   ├── include/          # Downloaded header files
 │   ├── lib/              # Downloaded libraries
 │   └── src/              # Downloaded source files
