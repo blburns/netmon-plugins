@@ -1,6 +1,8 @@
+activemq
 apache
 apt
 by_ssh
+cassandra
 ceph
 cluster
 consul
