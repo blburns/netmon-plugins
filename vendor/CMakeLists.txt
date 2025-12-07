@@ -1,13 +1,13 @@
-# third_party/CMakeLists.txt
-# Configuration for downloading third-party headers and libraries
+# vendor/CMakeLists.txt
+# Configuration for downloading vendor headers and libraries
 
 include(FetchContent)
 
-# Set options for third-party dependencies
-option(ENABLE_THIRD_PARTY_PROTOCOLS "Enable downloading third-party protocol headers" ON)
+# Set options for vendor dependencies
+option(ENABLE_VENDOR_PROTOCOLS "Enable downloading vendor protocol headers" ON)
 
-if(ENABLE_THIRD_PARTY_PROTOCOLS)
-    message(STATUS "Third-party protocol headers: Enabled")
+if(ENABLE_VENDOR_PROTOCOLS)
+    message(STATUS "Vendor protocol headers: Enabled")
     
     # Example: Download protocol headers from a repository
     # Uncomment and modify as needed for specific protocols
@@ -37,15 +37,15 @@ if(ENABLE_THIRD_PARTY_PROTOCOLS)
     # )
     # FetchContent_MakeAvailable(protocol_lib)
     
-    # Create include directory for third-party headers
+    # Create include directory for vendor headers
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
     
     # Add include directory to build
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
     
-    message(STATUS "Third-party headers directory: ${CMAKE_CURRENT_SOURCE_DIR}/include")
+    message(STATUS "Vendor headers directory: ${CMAKE_CURRENT_SOURCE_DIR}/include")
 else()
-    message(STATUS "Third-party protocol headers: Disabled")
+    message(STATUS "Vendor protocol headers: Disabled")
 endif()
 
 # Function to download a single header file
@@ -98,5 +98,5 @@ function(download_protocol_headers_from_git name repo tag)
 endfunction()
 
 # Export functions for use in main CMakeLists.txt
-set(THIRD_PARTY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE PATH "Third-party headers include directory")
+set(VENDOR_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE PATH "Vendor headers include directory")
 
