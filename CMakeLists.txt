@@ -210,13 +210,13 @@ if(ENABLE_PACKAGING)
         set(CPACK_DEBIAN_PACKAGE_SECTION "net")
         set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
         set(CPACK_DEBIAN_PACKAGE_DEPENDS "libssl1.1")
-        set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "nagios3 | icinga2 | zabbix-agent")
+        set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "icinga2")
         
         # RPM package settings
         set(CPACK_RPM_PACKAGE_LICENSE "Apache-2.0")
         set(CPACK_RPM_PACKAGE_GROUP "Applications/System")
         set(CPACK_RPM_PACKAGE_REQUIRES "openssl-libs")
-        set(CPACK_RPM_PACKAGE_SUGGESTS "nagios | icinga | zabbix")
+        set(CPACK_RPM_PACKAGE_SUGGESTS "icinga")
     endif()
 endif()
 

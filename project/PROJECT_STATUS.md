@@ -2,7 +2,7 @@
 
 ## 🎯 Project Overview
 
-NetMon Plugins is a comprehensive collection of modern monitoring plugins, designed for contemporary systems and best practices. Compatible with multiple monitoring systems including Nagios, Icinga, Zabbix, Prometheus, and more.
+NetMon Plugins is a comprehensive collection of modern monitoring plugins, designed for contemporary systems and best practices. Compatible with multiple monitoring systems including Icinga, Prometheus, and more.
 
 **Key Features:**
 - **54+ Monitoring Plugins** - Complete coverage of system and network monitoring

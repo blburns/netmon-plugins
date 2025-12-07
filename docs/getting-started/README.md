@@ -69,7 +69,7 @@ After installation, you can use the plugins directly:
 /usr/local/libexec/monitoring-plugins/check_ping -H 8.8.8.8 -w 100,20% -c 200,50%
 ```
 
-Or configure your monitoring system (Nagios, Icinga, Zabbix, Prometheus, etc.) to use them.
+Or configure your monitoring system (Icinga, Prometheus, etc.) to use them.
 
 ## Next Steps
 

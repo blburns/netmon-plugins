@@ -1,6 +1,6 @@
 # NetMon Plugins - Modern Monitoring Plugins
 
-A comprehensive collection of modern monitoring plugins, designed for contemporary systems and best practices. Compatible with multiple monitoring systems including Nagios, Icinga, Zabbix, Prometheus, and more.
+A comprehensive collection of modern monitoring plugins, designed for contemporary systems and best practices. Compatible with multiple monitoring systems including Icinga, Prometheus, and more.
 
 ## Overview
 
@@ -17,7 +17,7 @@ This project provides a complete set of monitoring plugins, built from the groun
 
 ### Core Capabilities
 - **54+ Monitoring Plugins** - Complete coverage of system and network monitoring
-- **Universal Compatibility** - Works with Nagios, Icinga, Zabbix, Prometheus, and other monitoring systems
+- **Universal Compatibility** - Works with Icinga, Prometheus, and other monitoring systems
 - **Modern C++** - Clean, maintainable codebase using C++17
 - **Cross-Platform** - Works on Linux, macOS, and Windows
 - **Dependency-Free** - Most plugins use only standard libraries and platform APIs
@@ -118,7 +118,7 @@ brew install netmon-plugins
 
 ### Usage
 
-All plugins follow the standard monitoring plugin interface (compatible with Nagios, Icinga, and other systems):
+All plugins follow the standard monitoring plugin interface (compatible with Icinga and other systems):
 
 ```bash
 # Check disk usage

@@ -47,9 +47,9 @@ check_dns -H example.com -s 8.8.8.8
 
 ## Monitoring System Configuration Examples
 
-### Nagios/Icinga Service Definition
+### Icinga Service Definition
 
-```nagios
+```icinga
 define service {
     use                     generic-service
     host_name               example-server
@@ -58,9 +58,9 @@ define service {
 }
 ```
 
-### Nagios/Icinga Command Definition
+### Icinga Command Definition
 
-```nagios
+```icinga
 define command {
     command_name    check_ping
     command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w $ARG1$ -c $ARG2$
