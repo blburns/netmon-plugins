@@ -22,15 +22,37 @@ Some plugins require external vendor libraries to function properly. These libra
   - Build Command: `make build ENABLE_MYSQL=ON`
 
 **Installation:**
-```bash
-# Debian/Ubuntu
-sudo apt-get install libmysqlclient-dev
 
-# RHEL/CentOS
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt-get update
+sudo apt-get install libmysqlclient-dev
+```
+
+**Linux (RHEL/CentOS/Fedora):**
+```bash
+# RHEL/CentOS 7
 sudo yum install mysql-devel
 
-# macOS
+# RHEL/CentOS 8+ / Fedora
+sudo dnf install mysql-devel
+```
+
+**macOS:**
+```bash
 brew install mysql-client
+# or for full MySQL server
+brew install mysql
+```
+
+**Windows:**
+```powershell
+# Using vcpkg (recommended)
+vcpkg install mysql-connector-c
+
+# Or download MySQL Connector/C from:
+# https://dev.mysql.com/downloads/connector/c/
+# Extract to vendors/mysql/
 ```
 
 #### PostgreSQL Plugins
@@ -44,15 +66,37 @@ brew install mysql-client
   - Build Command: `make build ENABLE_PGSQL=ON`
 
 **Installation:**
-```bash
-# Debian/Ubuntu
-sudo apt-get install libpq-dev
 
-# RHEL/CentOS
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt-get update
+sudo apt-get install libpq-dev
+```
+
+**Linux (RHEL/CentOS/Fedora):**
+```bash
+# RHEL/CentOS 7
 sudo yum install postgresql-devel
 
-# macOS
+# RHEL/CentOS 8+ / Fedora
+sudo dnf install postgresql-devel
+```
+
+**macOS:**
+```bash
 brew install postgresql
+# or just client libraries
+brew install libpq
+```
+
+**Windows:**
+```powershell
+# Using vcpkg (recommended)
+vcpkg install libpq
+
+# Or download PostgreSQL from:
+# https://www.postgresql.org/download/windows/
+# Extract libpq to vendors/postgresql/
 ```
 
 #### Oracle Database (Future)
@@ -66,8 +110,36 @@ brew install postgresql
   - Build Command: `make build ENABLE_ORACLE=ON`
 
 **Installation:**
-- Download Oracle Instant Client from Oracle website
-- Extract to `vendors/oracle/`
+
+**Linux:**
+```bash
+# Download Oracle Instant Client from:
+# https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html
+# Extract to vendors/oracle/
+# Example:
+cd vendors/oracle
+unzip instantclient-basic-linux.x64-*.zip
+```
+
+**macOS:**
+```bash
+# Download Oracle Instant Client from:
+# https://www.oracle.com/database/technologies/instant-client/macos-intel-x86-downloads.html
+# Extract to vendors/oracle/
+# Example:
+cd vendors/oracle
+unzip instantclient-basic-macos.x64-*.zip
+```
+
+**Windows:**
+```powershell
+# Download Oracle Instant Client from:
+# https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html
+# Extract to vendors\oracle\
+# Example:
+cd vendors\oracle
+Expand-Archive instantclient-basic-windows.x64-*.zip
+```
 
 ### Directory Services
 
@@ -82,15 +154,35 @@ brew install postgresql
   - Build Command: `make build ENABLE_LDAP=ON`
 
 **Installation:**
-```bash
-# Debian/Ubuntu
-sudo apt-get install libldap2-dev
 
-# RHEL/CentOS
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt-get update
+sudo apt-get install libldap2-dev
+```
+
+**Linux (RHEL/CentOS/Fedora):**
+```bash
+# RHEL/CentOS 7
 sudo yum install openldap-devel
 
-# macOS
+# RHEL/CentOS 8+ / Fedora
+sudo dnf install openldap-devel
+```
+
+**macOS:**
+```bash
 brew install openldap
+```
+
+**Windows:**
+```powershell
+# Using vcpkg (recommended)
+vcpkg install openldap
+
+# Or download OpenLDAP from:
+# http://www.openldap.org/software/download/
+# Extract to vendors/ldap/
 ```
 
 ### Network Management
@@ -106,15 +198,36 @@ brew install openldap
   - Build Command: `make build ENABLE_SNMP=ON`
 
 **Installation:**
-```bash
-# Debian/Ubuntu
-sudo apt-get install libsnmp-dev
 
-# RHEL/CentOS
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt-get update
+sudo apt-get install libsnmp-dev
+```
+
+**Linux (RHEL/CentOS/Fedora):**
+```bash
+# RHEL/CentOS 7
 sudo yum install net-snmp-devel
 
-# macOS
+# RHEL/CentOS 8+ / Fedora
+sudo dnf install net-snmp-devel
+```
+
+**macOS:**
+```bash
 brew install net-snmp
+```
+
+**Windows:**
+```powershell
+# Using vcpkg (recommended)
+vcpkg install net-snmp
+
+# Or download Net-SNMP from:
+# http://www.net-snmp.org/download.html
+# Extract to vendors/snmp/
+# Note: Windows builds may require additional configuration
 ```
 
 ### Security & Encryption
@@ -136,15 +249,37 @@ brew install net-snmp
   - Build Command: `make build ENABLE_SSL=ON`
 
 **Installation:**
-```bash
-# Debian/Ubuntu
-sudo apt-get install libssl-dev
 
-# RHEL/CentOS
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt-get update
+sudo apt-get install libssl-dev
+```
+
+**Linux (RHEL/CentOS/Fedora):**
+```bash
+# RHEL/CentOS 7
 sudo yum install openssl-devel
 
-# macOS
+# RHEL/CentOS 8+ / Fedora
+sudo dnf install openssl-devel
+```
+
+**macOS:**
+```bash
 brew install openssl
+# Note: macOS includes OpenSSL, but brew version is recommended for development
+```
+
+**Windows:**
+```powershell
+# Using vcpkg (recommended)
+vcpkg install openssl
+
+# Or download OpenSSL from:
+# https://slproweb.com/products/Win32OpenSSL.html
+# Install to default location or extract to vendors/openssl/
+# Note: Ensure OpenSSL DLLs are in PATH or same directory as executables
 ```
 
 **Note:** OpenSSL plugins will show warnings if OpenSSL is not available, but may fall back to non-SSL functionality where possible.
@@ -183,26 +318,60 @@ The following plugins do **NOT** require any vendor libraries and work with only
 ## Build Configuration
 
 ### Minimal Build (No Vendor Dependencies)
+
+**Linux/macOS:**
 ```bash
 make build-minimal
 # or
 make build ENABLE_SSL=OFF ENABLE_SNMP=OFF ENABLE_MYSQL=OFF ENABLE_PGSQL=OFF ENABLE_LDAP=OFF
 ```
 
+**Windows:**
+```powershell
+# Using CMake directly
+cd build
+cmake .. -DENABLE_SSL=OFF -DENABLE_SNMP=OFF -DENABLE_MYSQL=OFF -DENABLE_PGSQL=OFF -DENABLE_LDAP=OFF
+cmake --build . --config Release
+```
+
 ### Full Build (All Vendor Dependencies)
+
+**Linux/macOS:**
 ```bash
 make build-all
 # or
 make build ENABLE_SSL=ON ENABLE_SNMP=ON ENABLE_MYSQL=ON ENABLE_PGSQL=ON ENABLE_LDAP=ON
 ```
 
+**Windows:**
+```powershell
+# Using CMake directly
+cd build
+cmake .. -DENABLE_SSL=ON -DENABLE_SNMP=ON -DENABLE_MYSQL=ON -DENABLE_PGSQL=ON -DENABLE_LDAP=ON
+cmake --build . --config Release
+```
+
 ### Selective Build
+
+**Linux/macOS:**
 ```bash
 # Only MySQL and PostgreSQL
 make build ENABLE_MYSQL=ON ENABLE_PGSQL=ON ENABLE_SSL=OFF ENABLE_SNMP=OFF ENABLE_LDAP=OFF
 
 # Only SSL support
 make build-ssl
+```
+
+**Windows:**
+```powershell
+# Only MySQL and PostgreSQL
+cd build
+cmake .. -DENABLE_MYSQL=ON -DENABLE_PGSQL=ON -DENABLE_SSL=OFF -DENABLE_SNMP=OFF -DENABLE_LDAP=OFF
+cmake --build . --config Release
+
+# Only SSL support
+cmake .. -DENABLE_SSL=ON -DENABLE_SNMP=OFF -DENABLE_MYSQL=OFF -DENABLE_PGSQL=OFF -DENABLE_LDAP=OFF
+cmake --build . --config Release
 ```
 
 ## Vendor Library Organization
@@ -239,28 +408,63 @@ vendors/
 ### Adding a New Vendor Library
 
 1. **Create subdirectory:**
+
+   **Linux/macOS:**
    ```bash
-   mkdir -p vendors/<library_name>/{include,lib}
+   mkdir -p vendors/<library_name>/{include,lib,bin}
+   ```
+
+   **Windows:**
+   ```powershell
+   New-Item -ItemType Directory -Path "vendors\<library_name>\include"
+   New-Item -ItemType Directory -Path "vendors\<library_name>\lib"
+   New-Item -ItemType Directory -Path "vendors\<library_name>\bin"
    ```
 
 2. **Add CMakeLists.txt in vendors/CMakeLists.txt:**
    ```cmake
    # Example: MySQL
    if(ENABLE_MYSQL)
-       find_package(MySQL REQUIRED)
-       # or use FetchContent to download
+       if(WIN32)
+           # Windows: Look for manually installed library
+           set(MYSQL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql")
+           if(EXISTS "${MYSQL_ROOT_DIR}/include/mysql.h")
+               set(MYSQL_INCLUDE_DIR "${MYSQL_ROOT_DIR}/include")
+               set(MYSQL_LIBRARY "${MYSQL_ROOT_DIR}/lib/mysqlclient.lib")
+           else()
+               # Try vcpkg
+               find_package(MySQL CONFIG REQUIRED)
+           endif()
+       else()
+           # Linux/macOS: Use system package manager
+           find_package(PkgConfig REQUIRED)
+           pkg_check_modules(MYSQL REQUIRED mysqlclient)
+       endif()
    endif()
    ```
 
 3. **Update main CMakeLists.txt:**
    ```cmake
    if(ENABLE_MYSQL)
-       target_link_libraries(check_mysql MySQL::MySQL)
-       target_include_directories(check_mysql PRIVATE ${MYSQL_INCLUDE_DIR})
+       if(WIN32)
+           target_link_libraries(check_mysql ${MYSQL_LIBRARY})
+           target_include_directories(check_mysql PRIVATE ${MYSQL_INCLUDE_DIR})
+           # Copy DLL to output directory
+           if(EXISTS "${MYSQL_ROOT_DIR}/bin/libmysql.dll")
+               configure_file(
+                   "${MYSQL_ROOT_DIR}/bin/libmysql.dll"
+                   "${CMAKE_BINARY_DIR}/libmysql.dll"
+                   COPYONLY
+               )
+           endif()
+       else()
+           target_link_libraries(check_mysql ${MYSQL_LIBRARIES})
+           target_include_directories(check_mysql PRIVATE ${MYSQL_INCLUDE_DIRS})
+       endif()
    endif()
    ```
 
-4. **Update this document** with the new library information.
+4. **Update this document** with the new library information and platform-specific installation instructions.
 
 ## Runtime Behavior
 
@@ -283,17 +487,124 @@ and build with 'make build ENABLE_MYSQL=ON'.
 ## Platform-Specific Notes
 
 ### Linux
-- Most vendor libraries available via package managers
-- Development packages typically end with `-dev` (Debian/Ubuntu) or `-devel` (RHEL/CentOS)
+
+**Package Manager Differences:**
+- **Debian/Ubuntu**: Development packages end with `-dev` (e.g., `libmysqlclient-dev`)
+- **RHEL/CentOS 7**: Use `yum`, packages end with `-devel` (e.g., `mysql-devel`)
+- **RHEL/CentOS 8+ / Fedora**: Use `dnf`, packages end with `-devel`
+
+**Common Installation Pattern:**
+```bash
+# Debian/Ubuntu
+sudo apt-get update
+sudo apt-get install <package>-dev
+
+# RHEL/CentOS 7
+sudo yum install <package>-devel
+
+# RHEL/CentOS 8+ / Fedora
+sudo dnf install <package>-devel
+```
+
+**Build Tools:**
+```bash
+# Ensure build tools are installed
+# Debian/Ubuntu
+sudo apt-get install build-essential cmake pkg-config
+
+# RHEL/CentOS/Fedora
+sudo yum install gcc gcc-c++ make cmake pkgconfig
+# or
+sudo dnf install gcc gcc-c++ make cmake pkgconfig
+```
 
 ### macOS
-- Use Homebrew: `brew install <package>`
-- Some libraries may require Xcode Command Line Tools
+
+**Homebrew:**
+- Primary package manager: `brew install <package>`
+- Some libraries may require Xcode Command Line Tools:
+  ```bash
+  xcode-select --install
+  ```
+
+**Library Paths:**
+- Homebrew installs libraries to `/opt/homebrew/` (Apple Silicon) or `/usr/local/` (Intel)
+- CMake should automatically detect Homebrew-installed libraries
+
+**Common Issues:**
+- If CMake can't find libraries, set paths explicitly:
+  ```bash
+  export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig"
+  export CMAKE_PREFIX_PATH="/opt/homebrew"
+  ```
 
 ### Windows
-- Use vcpkg or download pre-built libraries
-- Place libraries in `vendors/<library>/lib/` and headers in `vendors/<library>/include/`
-- Update CMakeLists.txt to locate Windows libraries
+
+**Package Managers:**
+
+**vcpkg (Recommended):**
+```powershell
+# Install vcpkg
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+.\bootstrap-vcpkg.bat
+
+# Integrate with Visual Studio
+.\vcpkg integrate install
+
+# Install packages
+.\vcpkg install openssl:x64-windows
+.\vcpkg install mysql-connector-c:x64-windows
+.\vcpkg install libpq:x64-windows
+```
+
+**Conan (Alternative):**
+```powershell
+pip install conan
+conan install openssl/1.1.1@ -g cmake
+```
+
+**Manual Installation:**
+1. Download pre-built libraries or build from source
+2. Extract to `vendors/<library>/` with structure:
+   ```
+   vendors/<library>/
+   ├── include/
+   │   └── <headers>
+   ├── lib/
+   │   └── <.lib files>
+   └── bin/
+       └── <.dll files>
+   ```
+3. Update `vendors/CMakeLists.txt` to locate libraries:
+   ```cmake
+   set(MYSQL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql")
+   set(MYSQL_INCLUDE_DIR "${MYSQL_ROOT_DIR}/include")
+   set(MYSQL_LIBRARY "${MYSQL_ROOT_DIR}/lib/mysqlclient.lib")
+   ```
+
+**Visual Studio Integration:**
+- Use Visual Studio 2019 or later
+- Ensure Windows SDK is installed
+- For CMake projects, Visual Studio will use vcpkg automatically if integrated
+
+**DLL Paths:**
+- Place DLLs in same directory as executables, or
+- Add library `bin/` directories to system PATH
+- Or copy DLLs to build output directory during build
+
+**CMake Configuration:**
+```cmake
+# Example for Windows manual installation
+if(WIN32)
+    set(MYSQL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendors/mysql")
+    if(EXISTS "${MYSQL_ROOT_DIR}")
+        set(MYSQL_INCLUDE_DIR "${MYSQL_ROOT_DIR}/include")
+        set(MYSQL_LIBRARY "${MYSQL_ROOT_DIR}/lib/mysqlclient.lib")
+        set(MYSQL_DLL "${MYSQL_ROOT_DIR}/bin/libmysql.dll")
+    endif()
+endif()
+```
 
 ## Summary Table
 
