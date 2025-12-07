@@ -28,6 +28,7 @@ imap
 influxdb
 ircd
 jabber
+kafka
 kubernetes
 ldap
 load
@@ -62,6 +63,7 @@ sensors
 sip
 smtp
 snmp
+solr
 ssh
 ssl_validity
 swap
@@ -73,3 +75,4 @@ ups
 uptime
 users
 vault
+zookeeper
