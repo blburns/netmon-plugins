@@ -66,30 +66,35 @@ This analysis compares the current NetMon Plugins implementation with common mon
 - **Features**: Connection status, tablespace usage, session counts
 - **Complexity**: High
 - **Dependencies**: Oracle Instant Client
+- **Status**: Not implemented
 
 #### 2. **check_cloudwatch** - Cloud Monitoring
 - **Why**: Cloud infrastructure monitoring is essential
 - **Features**: Metric retrieval, alarm status
 - **Complexity**: Medium
 - **Dependencies**: Cloud provider SDK
+- **Status**: Not implemented
 
 #### 3. **check_consul** - Consul Service Discovery
 - **Why**: Popular service discovery and configuration tool
 - **Features**: Service health, node status, KV store
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 #### 4. **check_vault** - HashiCorp Vault
 - **Why**: Secrets management monitoring
 - **Features**: Vault health, seal status, metrics
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 #### 5. **check_nomad** - HashiCorp Nomad
 - **Why**: Container orchestration monitoring
 - **Features**: Job status, node health, allocation metrics
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 ### Medium Priority - Good Value
 
@@ -98,30 +103,35 @@ This analysis compares the current NetMon Plugins implementation with common mon
 - **Features**: Cluster health, leader status, metrics
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 #### 7. **check_cassandra** - Apache Cassandra Monitoring
 - **Why**: Popular NoSQL database
 - **Features**: Node status, cluster health, metrics
 - **Complexity**: Medium-High
 - **Dependencies**: HTTP API or JMX
+- **Status**: Not implemented
 
 #### 8. **check_influxdb** - InfluxDB Monitoring
 - **Why**: Time-series database commonly used for metrics
 - **Features**: Database health, query performance
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 #### 9. **check_grafana** - Grafana Monitoring
 - **Why**: Popular visualization platform
 - **Features**: API health, dashboard status
 - **Complexity**: Low-Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 #### 10. **check_consul_connect** - Consul Connect Service Mesh
 - **Why**: Service mesh monitoring
 - **Features**: Service mesh health, connectivity
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
 
 ### Lower Priority - Specialized Use Cases
 
@@ -130,30 +140,49 @@ This analysis compares the current NetMon Plugins implementation with common mon
 - **Features**: Queue depths, broker health
 - **Complexity**: Medium
 - **Dependencies**: HTTP API or JMX
+- **Status**: Not implemented
 
 #### 12. **check_artemis** - Apache Artemis Monitoring
 - **Why**: High-performance message broker
 - **Features**: Queue metrics, broker status
 - **Complexity**: Medium
 - **Dependencies**: HTTP API or JMX
+- **Status**: Not implemented
 
 #### 13. **check_kafka** - Apache Kafka Monitoring
 - **Why**: Distributed streaming platform
 - **Features**: Topic health, consumer lag, broker status
 - **Complexity**: Medium-High
 - **Dependencies**: HTTP API or native protocol
+- **Status**: Not implemented
 
 #### 14. **check_zookeeper** - Apache Zookeeper Monitoring
 - **Why**: Coordination service for distributed systems
 - **Features**: Cluster health, node status
 - **Complexity**: Medium
 - **Dependencies**: Native protocol or HTTP API
+- **Status**: Not implemented
 
 #### 15. **check_solr** - Apache Solr Monitoring
 - **Why**: Search platform monitoring
 - **Features**: Core health, query performance
 - **Complexity**: Medium
 - **Dependencies**: HTTP API (no external deps)
+- **Status**: Not implemented
+
+#### 16. **check_clamd** - ClamAV Daemon Monitoring
+- **Why**: Antivirus daemon monitoring
+- **Features**: Daemon health, scan queue status
+- **Complexity**: Low-Medium
+- **Dependencies**: Native protocol
+- **Status**: Not implemented
+
+#### 17. **check_mailq** - Mail Queue Monitoring
+- **Why**: Email queue monitoring
+- **Features**: Queue depth, message age
+- **Complexity**: Medium
+- **Dependencies**: Platform-specific (mailq command)
+- **Status**: Not implemented
 
 ## Implementation Recommendations
 
