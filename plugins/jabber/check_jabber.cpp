@@ -99,6 +99,7 @@ private:
         
         freeaddrinfo(result);
         return true;
+#endif
     }
 
     std::string receiveXmpp(int sock) {
