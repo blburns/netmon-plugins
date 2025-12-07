@@ -16,11 +16,12 @@ This project provides a complete set of monitoring plugins, built from the groun
 ## Features
 
 ### Core Capabilities
-- **54+ Monitoring Plugins** - Complete coverage of system and network monitoring
+- **68 Monitoring Plugins** - Complete coverage of system, network, and application monitoring
 - **Universal Compatibility** - Works with Icinga, Prometheus, and other monitoring systems
 - **Modern C++** - Clean, maintainable codebase using C++17
 - **Cross-Platform** - Works on Linux, macOS, and Windows
 - **Dependency-Free** - Most plugins use only standard libraries and platform APIs
+- **Vendor Headers Support** - Automatic download of third-party protocol headers
 - **Comprehensive Testing** - Unit and integration tests for all plugins
 - **Package Management** - DEB, RPM, PKG, and MSI packages available
 
@@ -52,6 +53,8 @@ This project provides a complete set of monitoring plugins, built from the groun
 - `pop` - POP3 email service monitoring
 - `nntp` - NNTP news server monitoring
 - `ircd` - IRC daemon monitoring
+- `jabber` - XMPP/Jabber server monitoring
+- `sip` - SIP (Session Initiation Protocol) monitoring
 - `telnet` - Telnet service monitoring
 - `dhcp` - DHCP service monitoring
 - `rpc` - RPC portmapper and service monitoring
@@ -66,14 +69,27 @@ This project provides a complete set of monitoring plugins, built from the groun
 - `dbi` - Database interface monitoring
 
 #### Application Monitoring
+- `apache` - Apache web server monitoring via mod_status
+- `docker` - Docker container and daemon monitoring
+- `elasticsearch` - Elasticsearch cluster health monitoring
+- `kubernetes` - Kubernetes API server monitoring
 - `ldap` - LDAP service monitoring
+- `log` - Log file pattern monitoring with regex
+- `memcached` - Memcached server statistics monitoring
+- `mongodb` - MongoDB server availability monitoring
+- `phpfpm` - PHP-FPM process manager monitoring
+- `prometheus` - Prometheus metrics endpoint monitoring
+- `rabbitmq` - RabbitMQ message broker monitoring
+- `redis` - Redis server status and performance monitoring
 - `radius` - RADIUS authentication monitoring
 - `mrtg` - MRTG data monitoring
-- `log` - Log file pattern monitoring with regex
+- `ceph` - Ceph distributed storage cluster monitoring
+- `couchbase` - Couchbase cluster monitoring
 
 #### Hardware Monitoring
 - `ide_smart` - IDE/SATA SMART monitoring
 - `hpjd` - HP JetDirect printer monitoring
+- `sensors` - Hardware temperature sensor monitoring (Linux)
 - `ups` - UPS monitoring
 
 #### Utility Plugins
@@ -159,19 +175,23 @@ netmon-plugins/
 ├── src/                  # Shared source code
 │   └── common/           # Common utilities
 ├── include/              # Header files
-│   └── netmon/     # Public API headers
+│   └── netmon/           # Public API headers
+├── vendor/               # Third-party protocol headers
+│   ├── include/          # Downloaded header files
+│   ├── lib/              # Downloaded libraries
+│   └── src/              # Downloaded source files
 ├── tests/                # Test suite
-│   ├── unit/            # Unit tests
-│   └── integration/     # Integration tests
+│   ├── unit/             # Unit tests
+│   └── integration/      # Integration tests
 ├── docs/                 # Documentation
 │   ├── getting-started/
 │   ├── development/
 │   └── examples/
 ├── scripts/              # Build and deployment scripts
 ├── automation/           # CI/CD automation
-│   ├── ci/              # CI configuration
-│   ├── docker/          # Docker setup
-│   └── vagrant/         # Vagrant setup
+│   ├── ci/               # CI configuration
+│   ├── docker/           # Docker setup
+│   └── vagrant/          # Vagrant setup
 ├── packaging/            # Package generation
 │   ├── linux/
 │   ├── macos/
@@ -207,9 +227,18 @@ make package
 
 1. Create plugin directory: `plugins/myplugin/`
 2. Implement plugin: `plugins/myplugin/check_myplugin.cpp`
-3. Add to CMakeLists.txt
+3. Add plugin name to `plugin_list.txt`
 4. Write tests: `tests/unit/test_myplugin.cpp`
 5. Update documentation
+
+### Using Vendor Headers
+
+For plugins that need third-party protocol headers:
+
+1. Add download configuration to `vendor/CMakeLists.txt`
+2. Include headers: `#include "vendor/protocol_name.h"`
+3. Headers are automatically downloaded during build
+4. See `vendor/README.md` for detailed instructions
 
 ### Testing
 
@@ -249,6 +278,7 @@ The following plugins are included in this project:
 - `http` - HTTP/HTTPS monitoring
 - `imap` - IMAP email service monitoring
 - `ircd` - IRC daemon monitoring
+- `jabber` - XMPP/Jabber server monitoring
 - `nntp` - NNTP news server monitoring
 - `ntp` - NTP monitoring
 - `ntp_peer` - NTP peer monitoring
@@ -256,6 +286,7 @@ The following plugins are included in this project:
 - `ping` - ICMP ping monitoring
 - `pop` - POP3 email service monitoring
 - `rpc` - RPC portmapper and service monitoring
+- `sip` - SIP (VoIP) protocol monitoring
 - `smtp` - SMTP monitoring
 - `snmp` - SNMP monitoring
 - `ssh` - SSH monitoring
@@ -271,16 +302,30 @@ The following plugins are included in this project:
 - `pgsql` - PostgreSQL monitoring
 
 ### Application Monitoring
+- `apache` - Apache web server monitoring
 - `apt` - APT package manager monitoring
+- `ceph` - Ceph distributed storage monitoring
 - `cluster` - Cluster monitoring
+- `couchbase` - Couchbase cluster monitoring
+- `docker` - Docker container monitoring
+- `elasticsearch` - Elasticsearch cluster monitoring
+- `kubernetes` - Kubernetes API monitoring
 - `ldap` - LDAP monitoring
+- `log` - Log file pattern monitoring
+- `memcached` - Memcached server monitoring
+- `mongodb` - MongoDB server monitoring
 - `mrtg` - MRTG data monitoring
 - `mrtgtraf` - MRTG traffic monitoring
+- `phpfpm` - PHP-FPM process manager monitoring
+- `prometheus` - Prometheus metrics monitoring
+- `rabbitmq` - RabbitMQ message broker monitoring
+- `redis` - Redis server monitoring
 - `radius` - RADIUS monitoring
 
 ### Hardware Monitoring
 - `hpjd` - HP JetDirect monitoring
 - `ide_smart` - IDE/SATA SMART monitoring
+- `sensors` - Hardware temperature sensors (Linux)
 - `ups` - UPS monitoring
 
 ### Specialized Monitoring
