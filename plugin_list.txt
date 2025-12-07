@@ -22,10 +22,12 @@ ide_smart
 imap
 ircd
 jabber
+kubernetes
 ldap
 load
 log
 memcached
+mongodb
 mrtg
 mrtgtraf
 mysql
@@ -49,6 +51,7 @@ radius
 redis
 real
 rpc
+sensors
 sip
 smtp
 snmp
