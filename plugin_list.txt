@@ -21,6 +21,7 @@ http
 ide_smart
 imap
 ircd
+jabber
 ldap
 load
 log
@@ -48,6 +49,7 @@ radius
 redis
 real
 rpc
+sip
 smtp
 snmp
 ssh
