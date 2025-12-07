@@ -24,6 +24,7 @@ ircd
 ldap
 load
 log
+memcached
 mrtg
 mrtgtraf
 mysql
@@ -44,6 +45,7 @@ procs
 prometheus
 rabbitmq
 radius
+redis
 real
 rpc
 smtp
