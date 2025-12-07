@@ -1,17 +1,17 @@
-# scripts/download_third_party.ps1
-# PowerShell script to manually download third-party protocol headers (Windows)
+# scripts/download_vendor.ps1
+# PowerShell script to manually download vendor protocol headers (Windows)
 
 $ErrorActionPreference = "Stop"
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ProjectRoot = Split-Path -Parent $ScriptDir
-$ThirdPartyDir = Join-Path $ProjectRoot "third_party"
+$ThirdPartyDir = Join-Path $ProjectRoot "vendor"
 $IncludeDir = Join-Path $ThirdPartyDir "include"
 
 # Create directories
 New-Item -ItemType Directory -Force -Path $IncludeDir | Out-Null
 
-Write-Host "Downloading third-party protocol headers..." -ForegroundColor Green
+Write-Host "Downloading vendor protocol headers..." -ForegroundColor Green
 
 # Example: Download a protocol header
 # Uncomment and modify as needed
@@ -44,7 +44,7 @@ Write-Host "Downloading third-party protocol headers..." -ForegroundColor Green
 Write-Host "Third-party headers downloaded to: $IncludeDir" -ForegroundColor Green
 Write-Host ""
 Write-Host "To use these headers in your plugins, include them like:" -ForegroundColor Cyan
-Write-Host "  #include `"third_party/example_protocol.h`"" -ForegroundColor Cyan
+Write-Host "  #include `"vendor/example_protocol.h`"" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Note: Make sure to add the include directory in CMakeLists.txt" -ForegroundColor Yellow
 

@@ -16,13 +16,13 @@ dist/
 *~
 .DS_Store
 
-# Third-party downloaded files (not in repository)
-third_party/include/*
-!third_party/include/.gitkeep
-third_party/lib/*
-!third_party/lib/.gitkeep
-third_party/src/*
-!third_party/src/.gitkeep
+# Vendor downloaded files (not in repository)
+vendor/include/*
+!vendor/include/.gitkeep
+vendor/lib/*
+!vendor/lib/.gitkeep
+vendor/src/*
+!vendor/src/.gitkeep
 
 # CMake
 CMakeCache.txt

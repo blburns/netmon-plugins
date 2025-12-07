@@ -1,7 +1,9 @@
 apache
 apt
 by_ssh
+ceph
 cluster
+couchbase
 dbi
 dhcp
 dig

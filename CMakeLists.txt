@@ -81,6 +81,9 @@ endif()
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# Include vendor headers configuration
+add_subdirectory(vendor)
+
 # Common library sources
 file(GLOB_RECURSE COMMON_SOURCES "src/common/*.cpp" "src/common/*.c")
 file(GLOB_RECURSE COMMON_HEADERS "include/netmon/*.hpp" "include/netmon/*.h")
@@ -104,6 +107,11 @@ endforeach()
 # Create common library
 add_library(netmon-common STATIC ${COMMON_SOURCES} ${COMMON_HEADERS})
 target_link_libraries(netmon-common Threads::Threads)
+
+# Add vendor include directories
+if(ENABLE_VENDOR_PROTOCOLS)
+    target_include_directories(netmon-common PUBLIC ${VENDOR_INCLUDE_DIR})
+endif()
 
 if(ENABLE_SSL)
     target_link_libraries(netmon-common OpenSSL::SSL OpenSSL::Crypto)

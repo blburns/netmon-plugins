@@ -1,18 +1,18 @@
 #!/bin/bash
-# scripts/download_third_party.sh
-# Script to manually download third-party protocol headers
+# scripts/download_vendor.sh
+# Script to manually download vendor protocol headers
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-THIRD_PARTY_DIR="$PROJECT_ROOT/third_party"
+THIRD_PARTY_DIR="$PROJECT_ROOT/vendor"
 INCLUDE_DIR="$THIRD_PARTY_DIR/include"
 
 # Create directories
 mkdir -p "$INCLUDE_DIR"
 
-echo "Downloading third-party protocol headers..."
+echo "Downloading vendor protocol headers..."
 
 # Example: Download a protocol header
 # Uncomment and modify as needed
@@ -44,7 +44,7 @@ echo "Downloading third-party protocol headers..."
 echo "Third-party headers downloaded to: $INCLUDE_DIR"
 echo ""
 echo "To use these headers in your plugins, include them like:"
-echo "  #include \"third_party/example_protocol.h\""
+echo "  #include \"vendor/example_protocol.h\""
 echo ""
 echo "Note: Make sure to add the include directory in CMakeLists.txt"
 
