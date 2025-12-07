@@ -1,13 +1,22 @@
 # Getting Started with NetMon Plugins
 
-This guide will help you get started with the NetMon Plugins monitoring plugins project.
+Quick start guide for building and using NetMon Plugins on Linux, macOS, and Windows.
 
 ## Prerequisites
 
-- C++17 compatible compiler (GCC 7+, Clang 5+, or MSVC 2017+)
-- CMake 3.16 or higher
-- OpenSSL development libraries
-- Make (optional, for convenience)
+### Required
+- **C++17 Compiler**: GCC 7+, Clang 5+, or MSVC 2017+
+- **CMake**: Version 3.16 or higher
+- **Make**: (Linux/macOS) or Visual Studio (Windows)
+
+### Optional (for specific plugins)
+- **OpenSSL**: For SSL/TLS plugins
+- **MySQL Client**: For MySQL plugins
+- **PostgreSQL Client**: For PostgreSQL plugin
+- **LDAP Client**: For LDAP plugin
+- **Net-SNMP**: For SNMP plugin
+
+See [Installation Guide](../installation/README.md) for detailed dependency information.
 
 ## Quick Start
 
@@ -20,60 +29,131 @@ cd netmon-plugins
 
 ### 2. Install Dependencies
 
-**Linux (Ubuntu/Debian):**
+**Linux (Debian/Ubuntu):**
 ```bash
 sudo apt-get update
 sudo apt-get install -y build-essential cmake libssl-dev
 ```
 
+**Linux (RHEL/CentOS/Fedora):**
+```bash
+sudo yum install -y gcc gcc-c++ make cmake openssl-devel
+# or
+sudo dnf install -y gcc gcc-c++ make cmake openssl-devel
+```
+
 **macOS:**
 ```bash
-brew install openssl cmake
+brew install cmake openssl
+xcode-select --install  # If not already installed
 ```
 
 **Windows:**
-Install vcpkg and required packages, or use Visual Studio with vcpkg integration.
+```powershell
+# Install vcpkg
+git clone https://github.com/Microsoft/vcpkg.git C:\vcpkg
+cd C:\vcpkg
+.\bootstrap-vcpkg.bat
+.\vcpkg integrate install
+.\vcpkg install openssl:x64-windows
+```
 
 ### 3. Build the Project
 
+**Linux/macOS:**
 ```bash
 make build
 ```
 
-Or using CMake directly:
-```bash
-mkdir build && cd build
-cmake ..
-make
+**Windows:**
+```powershell
+mkdir build
+cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
+cmake --build . --config Release
 ```
 
-### 4. Run Tests
+### 4. Test a Plugin
 
+**Linux/macOS:**
 ```bash
-make test
+./build/check_ping -H 8.8.8.8 -w 100,20% -c 200,50%
+```
+
+**Windows:**
+```powershell
+.\build\Release\check_ping.exe -H 8.8.8.8 -w 100,20% -c 200,50%
 ```
 
 ### 5. Install Plugins
 
+**Linux/macOS:**
 ```bash
 sudo make install
 ```
 
-Plugins will be installed to `/usr/local/libexec/monitoring-plugins/` (or equivalent on your system).
+**Windows:**
+```powershell
+cmake --install . --config Release
+```
+
+Plugins will be installed to:
+- **Linux/macOS**: `/usr/local/libexec/monitoring-plugins/`
+- **Windows**: `C:\Program Files\netmon-plugins\libexec\monitoring-plugins\`
 
 ## Using the Plugins
 
-After installation, you can use the plugins directly:
+### Direct Usage
 
+**Linux/macOS:**
 ```bash
 /usr/local/libexec/monitoring-plugins/check_ping -H 8.8.8.8 -w 100,20% -c 200,50%
+/usr/local/libexec/monitoring-plugins/check_disk -w 80 -c 90 /
+/usr/local/libexec/monitoring-plugins/check_http -H example.com -p 443 -S
 ```
 
-Or configure your monitoring system (Icinga, Prometheus, etc.) to use them.
+**Windows:**
+```powershell
+"C:\Program Files\netmon-plugins\libexec\monitoring-plugins\check_ping.exe" -H 8.8.8.8 -w 100,20% -c 200,50%
+```
+
+### Common Plugin Examples
+
+**System Monitoring:**
+```bash
+check_disk -w 80 -c 90 /
+check_load -w 1.0,2.0,3.0 -c 2.0,4.0,6.0
+check_swap -w 50% -c 80%
+```
+
+**Network Monitoring:**
+```bash
+check_ping -H 8.8.8.8 -w 100,20% -c 200,50%
+check_http -H example.com -p 443 -S
+check_tcp -H example.com -p 80
+```
+
+**Application Monitoring:**
+```bash
+check_elasticsearch -H localhost -p 9200
+check_docker -H localhost -p 2375
+check_redis -H localhost -p 6379
+```
 
 ## Next Steps
 
-- See [Development Guide](../development/README.md) for contributing
-- Check [Examples](../examples/README.md) for plugin usage examples
-- Review [API Documentation](../api/README.md) for plugin development
+### For Users
+- **[Plugin Reference](../plugin-reference/README.md)** - Complete reference for all 80 plugins
+- **[Examples](../examples/README.md)** - Detailed usage examples
+- **[Deployment Guide](../deployment/README.md)** - Integration with monitoring systems
+- **[Troubleshooting](../troubleshooting/README.md)** - Common issues and solutions
+
+### For Developers
+- **[Development Guide](../development/README.md)** - How to contribute
+- **[API Documentation](../api/README.md)** - Plugin development API
+- **[Architecture Guide](../architecture/README.md)** - Project architecture
+
+### Additional Resources
+- **[Installation Guide](../installation/README.md)** - Detailed installation instructions
+- **[Vendor Dependencies](../../project/VENDOR_DEPENDENCIES.md)** - Third-party library requirements
 
