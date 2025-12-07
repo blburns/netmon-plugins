@@ -6,7 +6,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-THIRD_PARTY_DIR="$PROJECT_ROOT/vendor"
+THIRD_PARTY_DIR="$PROJECT_ROOT/vendors"
 INCLUDE_DIR="$THIRD_PARTY_DIR/include"
 
 # Create directories
@@ -44,7 +44,7 @@ echo "Downloading vendor protocol headers..."
 echo "Third-party headers downloaded to: $INCLUDE_DIR"
 echo ""
 echo "To use these headers in your plugins, include them like:"
-echo "  #include \"vendor/example_protocol.h\""
+echo "  #include \"vendors/example_protocol.h\""
 echo ""
 echo "Note: Make sure to add the include directory in CMakeLists.txt"
 

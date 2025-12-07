@@ -103,3 +103,18 @@ endfunction()
 # Export functions for use in main CMakeLists.txt
 set(VENDOR_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE PATH "Vendor headers include directory")
 
+# Example: Containerized vendor library directories
+# Each vendor library can have its own subdirectory:
+# - vendors/mysql/        # MySQL client library
+# - vendors/postgresql/    # PostgreSQL (libpq) client library
+# - vendors/oracle/        # Oracle Instant Client
+# - vendors/<name>/        # Other vendor libraries
+
+# Add vendor library subdirectories to include path
+file(GLOB vendor_dirs "${CMAKE_CURRENT_SOURCE_DIR}/*")
+foreach(vendor_dir ${vendor_dirs})
+    if(IS_DIRECTORY ${vendor_dir} AND EXISTS "${vendor_dir}/include")
+        list(APPEND VENDOR_INCLUDE_DIR "${vendor_dir}/include")
+    endif()
+endforeach()
+

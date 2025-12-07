@@ -5,7 +5,7 @@ $ErrorActionPreference = "Stop"
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ProjectRoot = Split-Path -Parent $ScriptDir
-$ThirdPartyDir = Join-Path $ProjectRoot "vendor"
+$ThirdPartyDir = Join-Path $ProjectRoot "vendors"
 $IncludeDir = Join-Path $ThirdPartyDir "include"
 
 # Create directories
@@ -44,7 +44,7 @@ Write-Host "Downloading vendor protocol headers..." -ForegroundColor Green
 Write-Host "Third-party headers downloaded to: $IncludeDir" -ForegroundColor Green
 Write-Host ""
 Write-Host "To use these headers in your plugins, include them like:" -ForegroundColor Cyan
-Write-Host "  #include `"vendor/example_protocol.h`"" -ForegroundColor Cyan
+Write-Host "  #include `"vendors/example_protocol.h`"" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Note: Make sure to add the include directory in CMakeLists.txt" -ForegroundColor Yellow
 
