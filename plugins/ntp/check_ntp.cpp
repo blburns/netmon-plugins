@@ -1,27 +1,13 @@
 // plugins/ntp/check_ntp.cpp
 // NTP time synchronization monitoring plugin
 
+#include "netmon/ntp_client.hpp"
 #include "netmon/plugin.hpp"
+#include <cmath>
+#include <cstring>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <iomanip>
-#include <cstring>
-#include <stdexcept>
-#include <cmath>
-
-#ifdef _WIN32
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#pragma comment(lib, "ws2_32.lib")
-#else
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <fcntl.h>
-#endif
 
 namespace {
 
@@ -30,64 +16,47 @@ private:
     std::string hostname = "pool.ntp.org";
     int port = 123;
     int timeoutSeconds = 10;
-    double warningOffset = 1.0;   // Warning if time offset > this (seconds)
-    double criticalOffset = 5.0;  // Critical if time offset > this (seconds)
-
-    double getNtpOffset(const std::string& host, int portNum) {
-        // Simplified NTP check - full implementation would parse NTP packets
-        // For now, this is a placeholder that returns 0
-        // Full NTP implementation requires:
-        // 1. NTP packet construction
-        // 2. NTP packet parsing
-        // 3. Time calculation
-        
-        // Placeholder: return 0 (no offset detected)
-        // In production, this would:
-        // - Send NTP query packet
-        // - Receive NTP response
-        // - Calculate time offset
-        return 0.0;
-    }
+    double warningOffset = 1.0;
+    double criticalOffset = 5.0;
 
 public:
     netmon_plugins::PluginResult check() override {
-        try {
-            double offset = getNtpOffset(hostname, port);
-            
-            netmon_plugins::ExitCode code = netmon_plugins::ExitCode::OK;
-            std::ostringstream msg;
-            
-            msg << "NTP OK - Time offset: " << std::fixed << std::setprecision(3) 
-                << offset << " seconds";
-            
-            // Check thresholds
-            if (criticalOffset > 0 && std::abs(offset) > criticalOffset) {
-                code = netmon_plugins::ExitCode::CRITICAL;
-                msg.str("");
-                msg << "NTP CRITICAL - Time offset: " << offset 
-                    << " seconds (threshold: " << criticalOffset << ")";
-            } else if (warningOffset > 0 && std::abs(offset) > warningOffset) {
-                code = netmon_plugins::ExitCode::WARNING;
-                msg.str("");
-                msg << "NTP WARNING - Time offset: " << offset 
-                    << " seconds (threshold: " << warningOffset << ")";
-            }
-            
-            std::ostringstream perfdata;
-            perfdata << "ntp_offset=" << std::fixed << std::setprecision(3) << offset << "s";
-            if (warningOffset > 0) {
-                perfdata << ";" << warningOffset << ";" << criticalOffset;
-            }
-            
-            return netmon_plugins::PluginResult(code, msg.str(), perfdata.str());
-        } catch (const std::exception& e) {
+        const auto result =
+            netmon_plugins::queryNtpOffset(hostname, port, timeoutSeconds);
+        if (!result.ok) {
             return netmon_plugins::PluginResult(
-                netmon_plugins::ExitCode::UNKNOWN,
-                "NTP check failed: " + std::string(e.what())
+                netmon_plugins::ExitCode::CRITICAL,
+                "NTP CRITICAL - " + result.error
             );
         }
+
+        const double offset = result.offset_seconds;
+        netmon_plugins::ExitCode code = netmon_plugins::ExitCode::OK;
+        std::ostringstream msg;
+        msg << "NTP OK - Time offset: " << std::fixed << std::setprecision(3)
+            << offset << " seconds (stratum " << result.stratum << ")";
+
+        if (criticalOffset > 0 && std::abs(offset) > criticalOffset) {
+            code = netmon_plugins::ExitCode::CRITICAL;
+            msg.str("");
+            msg << "NTP CRITICAL - Time offset: " << offset
+                << " seconds (threshold: " << criticalOffset << ")";
+        } else if (warningOffset > 0 && std::abs(offset) > warningOffset) {
+            code = netmon_plugins::ExitCode::WARNING;
+            msg.str("");
+            msg << "NTP WARNING - Time offset: " << offset
+                << " seconds (threshold: " << warningOffset << ")";
+        }
+
+        std::ostringstream perfdata;
+        perfdata << "ntp_offset=" << std::fixed << std::setprecision(3) << offset << "s";
+        if (warningOffset > 0) {
+            perfdata << ";" << warningOffset << ";" << criticalOffset;
+        }
+
+        return netmon_plugins::PluginResult(code, msg.str(), perfdata.str());
     }
-    
+
     void parseArguments(int argc, char* argv[]) override {
         for (int i = 1; i < argc; i++) {
             if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
@@ -116,7 +85,7 @@ public:
             }
         }
     }
-    
+
     std::string getUsage() const override {
         return "Usage: check_ntp [options]\n"
                "Options:\n"
@@ -125,11 +94,9 @@ public:
                "  -w, --warning SEC      Warning if time offset > SEC (default: 1.0)\n"
                "  -c, --critical SEC     Critical if time offset > SEC (default: 5.0)\n"
                "  -t, --timeout SEC      Timeout in seconds (default: 10)\n"
-               "  -h, --help             Show this help message\n"
-               "\n"
-               "Note: Full NTP packet parsing implementation pending.";
+               "  -h, --help             Show this help message";
     }
-    
+
     std::string getDescription() const override {
         return "Monitor NTP time synchronization";
     }
@@ -142,4 +109,3 @@ int main(int argc, char* argv[]) {
     plugin.parseArguments(argc, argv);
     return netmon_plugins::executePlugin(plugin);
 }
-

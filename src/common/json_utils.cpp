@@ -78,10 +78,17 @@ bool jsonHasKey(const std::string& json, const std::string& key) {
 }
 
 double extractJsonNumber(const std::string& json, const std::string& key) {
-    std::string value = extractJsonValue(json, key);
+    std::string value;
+    if (key.find('.') != std::string::npos) {
+        value = extractJsonNestedValue(json, key);
+    } else {
+        value = extractJsonValue(json, key);
+    }
     if (value.empty()) {
         // Try unquoted number
-        std::string pattern = "\"" + key + "\"\\s*:\\s*([0-9]+\\.?[0-9]*)";
+        const std::string leafKey =
+            key.find('.') != std::string::npos ? key.substr(key.rfind('.') + 1) : key;
+        std::string pattern = "\"" + leafKey + "\"\\s*:\\s*([0-9]+\\.?[0-9]*)";
         std::regex regex(pattern);
         std::smatch match;
         if (std::regex_search(json, match, regex)) {

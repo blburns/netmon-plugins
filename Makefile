@@ -3,7 +3,7 @@
 
 # Variables
 PROJECT_NAME = netmon-plugins
-VERSION = 0.1.0
+VERSION = 1.0.0
 BUILD_DIR = build
 DIST_DIR = dist
 PACKAGE_DIR = packaging

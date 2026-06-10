@@ -47,19 +47,39 @@ private:
         size_t size = sizeof(numProcessors);
         sysctlbyname("hw.ncpu", &numProcessors, &size, NULL, 0);
 #elif defined(_WIN32)
-        // Windows doesn't have load average, approximate with CPU usage
-        // This is a simplified approach
-        load1 = 0.0;
-        load5 = 0.0;
-        load15 = 0.0;
-        
+        // Windows has no Unix-style load average; approximate from CPU utilization.
+        auto fileTimeToUint64 = [](const FILETIME& ft) -> uint64_t {
+            ULARGE_INTEGER u;
+            u.LowPart = ft.dwLowDateTime;
+            u.HighPart = ft.dwHighDateTime;
+            return u.QuadPart;
+        };
+
+        FILETIME idle1, kernel1, user1;
+        if (!GetSystemTimes(&idle1, &kernel1, &user1)) {
+            throw std::runtime_error("Failed to read CPU times");
+        }
+        Sleep(250);
+
+        FILETIME idle2, kernel2, user2;
+        if (!GetSystemTimes(&idle2, &kernel2, &user2)) {
+            throw std::runtime_error("Failed to read CPU times");
+        }
+
+        const uint64_t idle = fileTimeToUint64(idle2) - fileTimeToUint64(idle1);
+        const uint64_t kernel = fileTimeToUint64(kernel2) - fileTimeToUint64(kernel1);
+        const uint64_t user = fileTimeToUint64(user2) - fileTimeToUint64(user1);
+        const uint64_t total = kernel + user;
+
         SYSTEM_INFO sysInfo;
         GetSystemInfo(&sysInfo);
-        numProcessors = sysInfo.dwNumberOfProcessors;
-        
-        // For Windows, we'd need to calculate CPU usage over time
-        // For now, return 0 as placeholder
-        throw std::runtime_error("Load average not available on Windows");
+        numProcessors = static_cast<int>(sysInfo.dwNumberOfProcessors);
+
+        const double cpuFraction =
+            total > 0 ? 1.0 - (static_cast<double>(idle) / static_cast<double>(total)) : 0.0;
+        load1 = cpuFraction * numProcessors;
+        load5 = load1;
+        load15 = load1;
 #else
         struct sysinfo info;
         if (sysinfo(&info) != 0) {
@@ -190,7 +210,9 @@ public:
                "Options:\n"
                "  -w, --warning THRESHOLD    Warning threshold (1min,5min,15min or single value)\n"
                "  -c, --critical THRESHOLD   Critical threshold (1min,5min,15min or single value)\n"
-               "  -h, --help                 Show this help message";
+               "  -h, --help                 Show this help message\n"
+               "\n"
+               "Note: On Windows, load is approximated from CPU utilization.";
     }
     
     std::string getDescription() const override {

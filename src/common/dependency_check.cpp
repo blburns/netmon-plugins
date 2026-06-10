@@ -20,9 +20,9 @@ bool checkOpenSslAvailable() {
 }
 
 bool checkLibraryAvailable(const std::string& libraryName) {
-    // Generic library checking - can be extended for specific libraries
-    // For now, this is a placeholder that can be implemented per-library
-    (void)libraryName; // Suppress unused parameter warning
+    if (libraryName == "openssl" || libraryName == "ssl") {
+        return checkOpenSslAvailable();
+    }
     return false;
 }
 

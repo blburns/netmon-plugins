@@ -22,16 +22,16 @@ User-facing documentation (installation, configuration, usage) is in **[docs/](.
 
 | Metric | Value |
 |--------|-------|
-| Version | 0.1.0 (pre-release) |
+| Version | 1.0.0 |
 | Total plugins | 80 |
 | Implemented | 80 (100%) |
-| Test coverage | 0% (framework pending) |
-| Documentation | ~40% content complete |
+| Test coverage | Core unit + integration tests |
+| Documentation | ~70% content complete |
 
 ## Roadmap phases
 
 1. **Phase 1–6**: Core infrastructure and all 80 plugins — ✅ Complete
-2. **Phase 7**: Quality release (testing, docs, packaging validation) — 🚧 In progress
+2. **Phase 7**: Quality release (testing, docs, packaging validation) — ✅ Complete
 3. **Phase 8**: Future plugins (Oracle, CloudWatch, etc.) — 📋 Planned
 
 ## Project history

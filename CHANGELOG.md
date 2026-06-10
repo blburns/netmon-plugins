@@ -7,14 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2025-06-09
+
+Production-ready release.
+
 ### Added
+- Catch2 test framework with unit and integration tests
+- Shared SNTP/time protocol client (`netmon/ntp_client.hpp`)
+- GitHub Actions CI (Linux and macOS)
+- Platform limitations documentation
 - LICENSE, CHANGELOG, packaging, deployment, tools, and config directories
 - Project management docs: IMPLEMENTATION_SUMMARY, FEATURE_AUDIT, ROADMAP_CHECKLIST
 
-### Planned
-- Unit and integration test framework
-- Plugin-specific documentation and examples
-- Production-ready package validation on all platforms
+### Changed
+- `check_ntp`, `check_ntp_time`, `check_ntp_peer`, and `check_time` now perform real time synchronization checks
+- `check_load` on Windows uses CPU utilization as a load-like metric
+- `extractJsonNumber` supports dotted nested keys
+- Version bumped to 1.0.0
+- CPack Debian dependencies updated for modern OpenSSL packages
+
+### Fixed
+- Placeholder NTP and time plugin implementations
+- Windows `check_load` no longer returns UNKNOWN on every run
+- Test build no longer requires PkgConfig
 
 ## [0.1.0] - 2024-12-07
 
@@ -52,5 +67,6 @@ Initial pre-release with full plugin catalog and core infrastructure.
 - Library-dependent plugins require optional system packages at build time
 - Packaging configuration exists but production package validation is incomplete
 
-[Unreleased]: https://github.com/yourusername/netmon-plugins/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/yourusername/netmon-plugins/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/yourusername/netmon-plugins/releases/tag/v1.0.0
 [0.1.0]: https://github.com/yourusername/netmon-plugins/releases/tag/v0.1.0

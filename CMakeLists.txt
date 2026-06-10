@@ -2,7 +2,7 @@
 # Copyright 2024
 
 cmake_minimum_required(VERSION 3.16)
-project(netmon-plugins VERSION 0.1.0 LANGUAGES CXX)
+project(netmon-plugins VERSION 1.0.0 LANGUAGES CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -94,6 +94,7 @@ set(COMMON_FILES
     "src/common/dependency_check.cpp"
     "src/common/json_utils.cpp"
     "src/common/http_api.cpp"
+    "src/common/ntp_client.cpp"
 )
 
 foreach(COMMON_FILE ${COMMON_FILES})
@@ -217,7 +218,7 @@ if(ENABLE_PACKAGING)
         set(CPACK_DEBIAN_PACKAGE_MAINTAINER "NetMon <info@netmon-plugins.com>")
         set(CPACK_DEBIAN_PACKAGE_SECTION "net")
         set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
-        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libssl1.1")
+        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libssl3 | libssl1.1 | openssl")
         set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "icinga2")
         
         # RPM package settings
