@@ -1,45 +1,43 @@
 # Project Management Documentation
 
-This directory contains project management, development, and internal documentation for the NetMon Plugins project.
+Internal project management, development, and status documentation for NetMon Plugins.
 
-## 📋 Document Organization
+## Document organization
 
-### Project Status & Progress
-- **[PROJECT_STATUS.md](PROJECT_STATUS.md)** - Overall project status, completion metrics, and health indicators
-- **[PROGRESS_REPORT.md](PROGRESS_REPORT.md)** - Detailed progress report with honest assessment of what works and what's pending
+### Project status & progress
+- **[PROJECT_STATUS.md](PROJECT_STATUS.md)** — Overall status, completion metrics, and health indicators
+- **[PROGRESS_REPORT.md](PROGRESS_REPORT.md)** — Detailed assessment of what works and what's pending
+- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** — Summary of completed work and current state
+- **[FEATURE_AUDIT.md](FEATURE_AUDIT.md)** — Implemented vs. pending feature audit
+- **[ROADMAP_CHECKLIST.md](ROADMAP_CHECKLIST.md)** — Checklist tracking progress toward v1.0.0
 
-### Implementation & Features
-- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Summary of recent improvements and feature completions (to be created)
-- **[FEATURE_AUDIT.md](FEATURE_AUDIT.md)** - Comprehensive audit of implemented vs. pending features (to be created)
+### Planning & analysis
+- **[PLUGIN_ANALYSIS_OVERVIEW.md](PLUGIN_ANALYSIS_OVERVIEW.md)** — Plugin opportunities and future candidates
 
-### Planning & Roadmap
-- **[ROADMAP_CHECKLIST.md](ROADMAP_CHECKLIST.md)** - Detailed checklist tracking roadmap items (to be created)
+## User documentation
 
-## 📚 User Documentation
+User-facing documentation (installation, configuration, usage) is in **[docs/](../docs/)**.
 
-For user-facing documentation (installation, configuration, usage guides), see the **[docs/](../docs/)** directory.
+## Current status
 
-## 📊 Current Status
+| Metric | Value |
+|--------|-------|
+| Version | 0.1.0 (pre-release) |
+| Total plugins | 80 |
+| Implemented | 80 (100%) |
+| Test coverage | 0% (framework pending) |
+| Documentation | ~40% content complete |
 
-- **Total Plugins**: 39
-- **Completed**: 6 (dummy, uptime, load, swap, users, disk)
-- **In Progress**: 0
-- **Pending**: 33
-- **Completion**: 15%
+## Roadmap phases
 
-## 🎯 Roadmap
+1. **Phase 1–6**: Core infrastructure and all 80 plugins — ✅ Complete
+2. **Phase 7**: Quality release (testing, docs, packaging validation) — 🚧 In progress
+3. **Phase 8**: Future plugins (Oracle, CloudWatch, etc.) — 📋 Planned
 
-1. **Phase 1**: Core infrastructure and common utilities ✅
-2. **Phase 2**: System monitoring plugins (6/11 complete)
-3. **Phase 3**: Network monitoring plugins (0/11 complete)
-4. **Phase 4**: Database and application plugins (0/4 complete)
-5. **Phase 5**: Hardware and specialized plugins (0/13 complete)
+## Project history
 
-## 📝 Project History
-
-For version history and changes, see **[CHANGELOG.md](../CHANGELOG.md)** in the project root (to be created).
+See **[CHANGELOG.md](../CHANGELOG.md)** for version history.
 
 ---
 
-*This directory is for internal project management. User documentation is located in the `docs/` directory.*
-
+*This directory is for internal project management. User documentation is in `docs/`.*

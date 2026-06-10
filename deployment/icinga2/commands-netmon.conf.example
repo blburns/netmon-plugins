@@ -1,0 +1,53 @@
+// NetMon Plugins - Icinga2 command definitions
+// Install: sudo cp commands-netmon.conf.example /etc/icinga2/conf.d/commands-netmon.conf
+
+object CheckCommand "netmon-ping" {
+  import "plugin-check-command"
+  command = [ "/usr/local/libexec/monitoring-plugins/check_ping" ]
+  arguments = {
+    "-H" = "$host.address$"
+    "-w" = "$ping_wrta$,$ping_wpl$%"
+    "-c" = "$ping_crta$,$ping_cpl$%"
+  }
+  vars.ping_wrta = 100
+  vars.ping_wpl = 20
+  vars.ping_crta = 200
+  vars.ping_cpl = 50
+}
+
+object CheckCommand "netmon-disk" {
+  import "plugin-check-command"
+  command = [ "/usr/local/libexec/monitoring-plugins/check_disk" ]
+  arguments = {
+    "-w" = "$disk_warning$"
+    "-c" = "$disk_critical$"
+    "-p" = "$disk_path$"
+  }
+  vars.disk_warning = "80"
+  vars.disk_critical = "90"
+  vars.disk_path = "/"
+}
+
+object CheckCommand "netmon-http" {
+  import "plugin-check-command"
+  command = [ "/usr/local/libexec/monitoring-plugins/check_http" ]
+  arguments = {
+    "-H" = "$http_address$"
+    "-p" = "$http_port$"
+    "-S" = { set_if = "$http_ssl$" }
+  }
+  vars.http_address = "$address$"
+  vars.http_port = 80
+}
+
+apply Service "netmon-ping" {
+  import "generic-service"
+  check_command = "netmon-ping"
+  assign where host.address
+}
+
+apply Service "netmon-disk" {
+  import "generic-service"
+  check_command = "netmon-disk"
+  assign where host.address
+}

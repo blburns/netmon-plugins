@@ -1,0 +1,27 @@
+# NetMon Plugins - Global configuration
+# Copy to /etc/netmon-plugins/netmon-plugins.conf and adjust as needed.
+
+[defaults]
+# Default plugin timeout in seconds
+timeout = 10
+
+# Default plugin install directory
+plugin_dir = /usr/local/libexec/monitoring-plugins
+
+# Enable verbose plugin output (0 = off, 1 = on)
+verbose = 0
+
+[http]
+# Default HTTP/HTTPS check timeout in seconds
+timeout = 10
+
+# Verify SSL certificates (0 = off, 1 = on)
+# Disable only for internal monitoring of self-signed endpoints.
+verify_ssl = 1
+
+[logging]
+# Log plugin execution results (0 = off, 1 = on)
+enabled = 0
+
+# Log file path when logging is enabled
+log_file = /var/log/netmon-plugins/checks.log

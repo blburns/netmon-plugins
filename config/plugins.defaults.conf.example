@@ -1,0 +1,29 @@
+# NetMon Plugins - Per-plugin default thresholds
+# Copy to /etc/netmon-plugins/plugins.defaults.conf
+# Monitoring systems can override these per service.
+
+[disk]
+warning = 80
+critical = 90
+
+[load]
+warning = 1.0,2.0,3.0
+critical = 2.0,4.0,6.0
+
+[ping]
+warning_rtt = 100
+warning_loss = 20
+critical_rtt = 200
+critical_loss = 50
+
+[swap]
+warning = 50
+critical = 80
+
+[users]
+warning = 5
+critical = 10
+
+[http]
+port = 80
+timeout = 10

@@ -1,0 +1,41 @@
+# NetMon Plugins - Nagios/Icinga Classic command definitions
+# Install: include this file from nagios.cfg or icinga.cfg
+
+define command {
+    command_name    netmon_ping
+    command_line    /usr/local/libexec/monitoring-plugins/check_ping -H $HOSTADDRESS$ -w $ARG1$ -c $ARG2$
+}
+
+define command {
+    command_name    netmon_disk
+    command_line    /usr/local/libexec/monitoring-plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
+}
+
+define command {
+    command_name    netmon_http
+    command_line    /usr/local/libexec/monitoring-plugins/check_http -H $HOSTADDRESS$ -p $ARG1$ $ARG2$
+}
+
+define command {
+    command_name    netmon_load
+    command_line    /usr/local/libexec/monitoring-plugins/check_load -w $ARG1$ -c $ARG2$
+}
+
+define command {
+    command_name    netmon_swap
+    command_line    /usr/local/libexec/monitoring-plugins/check_swap -w $ARG1$ -c $ARG2$
+}
+
+define service {
+    use                     generic-service
+    host_name               localhost
+    service_description     PING
+    check_command           netmon_ping!100.0,20%!500.0,60%
+}
+
+define service {
+    use                     generic-service
+    host_name               localhost
+    service_description     Disk Space
+    check_command           netmon_disk!80!90!/
+}
